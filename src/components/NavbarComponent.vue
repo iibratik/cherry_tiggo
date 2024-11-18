@@ -10,7 +10,7 @@
           <a href="#about-us">about us</a>
         </li>
         <li class="list-item">
-          <router-link class="list-item__link" to="/contacts" >contacts</router-link>
+          <a class="list-item__link" href="#contacts">contacts</a>
         </li>
       </ul>
       <WhiteBtn placeholder="Sign UP" />

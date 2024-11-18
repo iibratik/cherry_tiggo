@@ -1,7 +1,7 @@
 .top-products {
     margin-top: 2em;
     padding-bottom: 2em;
-    &__white-btn{
+    &__white-btn {
         margin-top: 3em;
         font-size: 18px;
         padding: 5px 25px;
@@ -11,7 +11,15 @@
         flex-direction: column;
         align-items: center;
         padding-bottom: 25px;
-        border-bottom: 1px solid white;
+        position: relative;
+        &::after{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: 90%;
+            height: 1px;
+            background: white;
+        }
     }
     &:focus {
         color: white;
@@ -46,7 +54,7 @@
         }
         &__price {
             padding: 10px 20px;
-            border: 2px solid #d5621d;
+            border: 2px solid var(--orange);
             border-radius: 5px;
             font-size: 18px;
             line-height: 150%;

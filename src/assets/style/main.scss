@@ -1,4 +1,5 @@
 /* ZERO STYLE */
+@use "@/assets/style/varibles.scss" ;
 @use "components/components.scss";
 @use "views/views.scss";
 @use "@/assets/fonts/fonts.scss";
@@ -82,8 +83,9 @@ h6 {
     font-weight: inherit;
 }
 /* ---------------------------------------------------------- */
+
 #app {
-    background-color: #893d0f;
+    background-color: var(--brown);
     color: white;
     width: 100%;
     height: 100%;
