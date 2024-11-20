@@ -1,6 +1,6 @@
 <template>
   <section class="about-us">
-    <h1 id="about-us" class="about-us__title title">About US</h1>
+    <h2 id="about-us" class="about-us__title title">About US</h2>
     <div class="about-us-content container ">
       <div class="about-us__left col-5 align-self-end">
         <p class="about-us__text">

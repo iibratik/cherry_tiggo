@@ -1,6 +1,6 @@
 <template>
   <section class="contacts">
-    <h1 id="contacts" class="contacts__title title">Contacts</h1>
+    <h2 id="contacts" class="contacts__title title">Contacts</h2>
     <div class="contacts-content container">
       <div class="contacts-content__left">
         <div class="contacts-adress">
