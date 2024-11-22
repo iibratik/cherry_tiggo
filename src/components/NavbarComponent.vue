@@ -13,7 +13,9 @@
           <a class="list-item__link" href="#contacts">contacts</a>
         </li>
       </ul>
-      <WhiteBtn placeholder="Sign UP" />
+      <WhiteBtn v-if="!isAuth">Sign Up</WhiteBtn>
+      <span>Welcome!</span>
+
     </div>
   </nav>
 </template>
@@ -24,6 +26,12 @@ import WhiteBtn from './UI/WhiteBtn.vue'
 export default {
   components: {
     WhiteBtn,
+  },
+  data() {
+    return {
+      isAuth: true,
+      orderModalWin: false,
+    }
   },
 }
 </script>

@@ -30,37 +30,7 @@
         </div>
       </div>
     </ModalComponent>
-    <ModalComponent v-if="orderModalWin">
-      <div class="menu-order__modal-win">
-        <div class="menu-order-content">
-          <form class="menu-order__form">
-            <div class="menu-order__form-head">
-              <label for="quantity" class="menu-order__label">ENTER ORDER quantity:</label>
-              <button class="menu-order__close" @click="orderModalWin = !orderModalWin">
-                <img src="@/assets/img/Close_Button.svg" alt="close_button" />
-              </button>
-            </div>
-            <input
-              type="number"
-              class="menu-order__input"
-              id="quantity"
-              aria-describedby="basic-addon3"
-            />
-            <div class="menu-order__dropdown">
-              <label for="region" class="menu-order__label">pLEASE CHOOSE YOUR REGION:</label>
-              <select id="region" class="menu-order__input">
-                <option value="" disabled selected class="d-none"></option>
-                <option value="uzb">Uzbekistan</option>
-                <option value="kaz">Kazakhstan</option>
-                <option value="geo">Georgia</option>
-                <option value="ukr">Ukraine</option>
-                <option value="chn">China</option>
-              </select>
-            </div>
-          </form>
-        </div>
-      </div>
-    </ModalComponent>
+
     <div class="menu-card-content">
       <button @click="imageModalWin = !imageModalWin">
         <img :src="product.picture" :alt="product.imgDesc" />
@@ -73,19 +43,27 @@
         </div>
       </div>
     </div>
-    <button class="menu-btn" @click="orderModalWin = !orderModalWin">Order</button>
+    <div class="menu-order-btns">
+      <button class="menu-btn" v-if="!isOrdering" @mouseenter="showOrderQuantity">Order</button>
+      <div class="menu-order-quantity" v-else @mouseleave="resetOrderView">
+        <button class="menu-order-quantity__btn" @click="minusOrDeleteCart()">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+        {{ productAmount }}
+        <button class="menu-order-quantity__btn" @click="addToCart()">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ModalComponent from '@/components/ModalComponent.vue'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  components: { ModalComponent },
-  data() {
-    return {
-      imageModalWin: false,
-      orderModalWin: false,
-    }
+  computed: {
+    ...mapGetters(['getCartProducts']),
   },
   props: {
     product: {
@@ -93,8 +71,42 @@ export default {
       require: true,
     },
   },
+  components: { ModalComponent },
+  data() {
+    return {
+      imageModalWin: false,
+      isOrdering: false,
+      productAmount: 0,
+    }
+  },
+  methods: {
+    ...mapActions(['addOrUpdateCart']),
+    addToCart() {
+      this.$store.dispatch('addOrUpdateCart', this.product)
+      this.showOrderQuantity()
+    },
+    showOrderQuantity() {
+      // Устанавливает состояние isOrdering и проверяет количество
+      this.isOrdering = true
+      const cartProduct = this.getCartProducts.find(
+        (cartProduct) => cartProduct.id === this.product.id
+      )
+      if (cartProduct) {
+        this.productAmount = cartProduct.quantity // Используем количество из свойства quantity
+      } else {
+        this.productAmount = 0 // Если продукт не найден
+      }
+    },
+    minusOrDeleteCart() {
+      this.$store.dispatch('minusorDeleteCart', this.product)
+      this.showOrderQuantity()
+    },
+    resetOrderView() {
+      // Возвращает к кнопке, если productAmount === 0
+      if (this.productAmount === 0) {
+        this.isOrdering = false
+      }
+    },
+  },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

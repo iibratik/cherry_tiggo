@@ -4,7 +4,7 @@ import { createStore } from 'vuex';
 const store = createStore({
     state() {
         return {
-            TopProducts: [
+            topProducts: [
                 {
                     id: 1,
                     name: 'Latte',
@@ -79,7 +79,7 @@ const store = createStore({
                 },
 
             ],
-            AllProducts: [
+            allProducts: [
                 {
                     id: 1,
                     name: 'Brownie',
@@ -138,26 +138,89 @@ const store = createStore({
                     description: ''
                 },
             ],
-            OrderDetails: {
+            orderDetails: {
                 quantity: 1,
                 region: 'EN',
                 date: '2024/10/01',
-                totalPrice:'14.5'
-            }
+                totalPrice: '14.5'
+            },
+            cart: [
+
+            ]
         };
     },
     mutations: {
-
+        addToCart(state, product) {
+            const existingProduct = state.cart.find(item => item.id === product.id);
+            if (existingProduct) {
+                existingProduct.quantity += 1; // Увеличиваем количество, если товар уже есть
+            } else {
+                state.cart.push({ ...product, quantity: 1 }); // Добавляем новый товар
+            }
+        },
+        removeFromCart(state, productId) {
+            const existingProduct = state.cart.find(item => item.id === productId);
+            if (existingProduct) {
+                if (existingProduct.quantity > 1) {
+                    existingProduct.quantity -= 1; // Уменьшаем количество
+                } else {
+                    state.cart = state.cart.filter(item => item.id !== productId); // Удаляем товар из корзины
+                }
+            }
+        },
+        addQuantity(state, { productId }) {
+            const product = state.cart.find(item => item.id === productId);
+            if (product && product.quantity > 0) {
+                product.quantity++
+            } else if (product && product.quantity === 0) {
+                state.cart = state.cart.filter(item => item.id !== productId);
+            }
+        },
+        minusQuantity(state, { productId }) {
+            const product = state.cart.find(item => item.id === productId);
+            if (product && product.quantity > 0) {
+                product.quantity--
+            } else if (product && product.quantity === 0) {
+                state.cart = state.cart.filter(item => item.id !== productId);
+            }
+        },
     },
     actions: {
+        addOrUpdateCart({ commit, state }, product) {
+            // Проверяем, есть ли продукт в корзине
+            const cartItem = state.cart.find(item => item.id === product.id);
+            if (cartItem) {
+                // Если товар есть, обновляем его количество
+                commit('addQuantity', { productId: product.id });
+            } else {
+                // Если товара нет, добавляем в корзину
+                commit('addToCart', product);
+            }
+        },
+        minusorDeleteCart({ commit, state }, product) {
+            const cartItem = state.cart.find(item => item.id === product.id);
+
+            if (cartItem) { // Проверяем, существует ли товар в корзине
+                if (cartItem.quantity > 0) {
+                    commit('minusQuantity', { productId: product.id });
+                }
+                // Проверяем количество товара и наличие id
+                if (cartItem.quantity === 0 && cartItem.id) {
+                    commit('removeFromCart', cartItem.id);
+                }
+            }
+        }
 
     },
     getters: {
+        getCartProducts(state) {
+            return state.cart
+        },
         getTopProducts(state) {
-            return state.TopProducts
+            return state.topProducts
         },
         getAllProducts(state) {
-            return state.AllProducts
+            return state.allProducts
         }
     },
 });
