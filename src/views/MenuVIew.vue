@@ -22,16 +22,42 @@
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                  ></button>
+                  >
+                    {{ currentRegion }}
+                  </button>
                   <ul
-                    class="dropdown-menu menu-order__region"
+                    class="dropdown-menu menu-order__regions"
                     aria-labelledby="dropdownMenuButton1"
                   >
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li
+                      v-for="region in getRegions"
+                      :key="region.id"
+                      @click="currentRegion = region.name"
+                    >
+                      <a class="dropdown-item menu-order__region">{{ region.name }}</a>
+                    </li>
                   </ul>
                 </div>
+              </div>
+              <div class="menu-order__date">
+                <label class="menu-order__label">Choose date of order:</label>
+                <v-date-picker color="#d5621d">
+                  <template v-slot:prev-icon>
+                    <v-icon icon="mdi-chevron-left" color="green-darken-2"></v-icon>
+                  </template>
+                  <template v-slot:next-icon>
+                    <v-icon icon="mdi-chevron-right"></v-icon>
+                  </template>
+                </v-date-picker>
+              </div>
+              <div class="menu-order__total-price">
+                <h3 class="total-price__title">ORDER PRICE</h3>
+                <div class="total-price__price-desc">
+                  <span class="price-title">price: <span>15$</span></span>
+                  <span class="price-title">Discount: <span>-2$</span></span>
+                  <span class="price-title">Tax: <span>1.5$</span></span>
+                </div>
+                <span class="price-title">total</span>
               </div>
             </form>
           </div>
@@ -43,17 +69,24 @@
 
 <script>
 import GridComponent from '@/components/Menu/GridComponent.vue'
-import ModalComponent from '@/components/ModalComponent.vue';
+import ModalComponent from '@/components/ModalComponent.vue'
+import { mapGetters } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters(['getRegions']),
+  },
   components: {
     GridComponent,
     ModalComponent,
   },
-  data(){
-    return{
-      orderModalWin: false
+  data() {
+    return {
+      orderModalWin: false,
+      currentRegion: '',
+      date: new Date(),
+      locale: 'en',
     }
-  }
+  },
 }
 </script>
 

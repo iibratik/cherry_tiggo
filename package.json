@@ -11,11 +11,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-3": "^0.3.12",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5",
+    "vuetify": "^3.7.4",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

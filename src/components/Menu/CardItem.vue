@@ -44,8 +44,8 @@
       </div>
     </div>
     <div class="menu-order-btns">
-      <button class="menu-btn" v-if="!isOrdering" @mouseenter="showOrderQuantity">Order</button>
-      <div class="menu-order-quantity" v-else @mouseleave="resetOrderView">
+      <button class="menu-btn" v-show="!isOrdering" @mouseenter="showOrderQuantity">Order</button>
+      <div class="menu-order-quantity" v-show="isOrdering" @mouseleave="resetOrderView">
         <button class="menu-order-quantity__btn" @click="minusOrDeleteCart()">
           <i class="fa-solid fa-minus"></i>
         </button>

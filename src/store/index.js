@@ -139,13 +139,18 @@ const store = createStore({
                 },
             ],
             orderDetails: {
-                quantity: 1,
-                region: 'EN',
-                date: '2024/10/01',
-                totalPrice: '14.5'
+                region: '',
+                date: new Date(),
+                totalPrice: 0
             },
             cart: [
-
+            ],
+            regions: [
+                { id: 0, name: 'Uzbekistan', vat: 15, discount: 3, cost: 1.00 },
+                { id: 1, name: 'Kazakhstan', vat: 20, discount: 5, cost: 5.00 },
+                { id: 2, name: 'Georgia', vat: 12, discount: 7, cost: 7.00 },
+                { id: 3, name: 'Ukraina', vat: 8, discount: 10, cost: 10.00 },
+                { id: 4, name: 'China', vat: 18, discount: 15, cost: 50.00 },
             ]
         };
     },
@@ -218,6 +223,9 @@ const store = createStore({
         },
         getTopProducts(state) {
             return state.topProducts
+        },
+        getRegions(state) {
+            return state.regions
         },
         getAllProducts(state) {
             return state.allProducts

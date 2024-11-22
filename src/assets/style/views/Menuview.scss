@@ -1,5 +1,23 @@
 .menu {
     &-order {
+        &__total-price{
+            margin-top: 1em;
+            border: 1px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        &__date {
+            margin-top: 1em;
+
+        }
+        &__region {
+            color: white;
+            &s {
+                width: 100%;
+                background: var(--brown);
+            }
+        }
         &-quantity {
             background-color: #fff;
             padding: 11px 0;
@@ -10,7 +28,7 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            &__btn{
+            &__btn {
                 background: none;
             }
         }
@@ -23,6 +41,10 @@
         }
         &__dropdown {
             margin-top: 1em;
+            & .menu-order__input {
+                display: flex;
+                align-self: flex-start;
+            }
         }
         &__label {
             color: white;
@@ -83,6 +105,9 @@
         padding-bottom: 2em;
         display: flex;
         flex-direction: column;
+        & .submit-btn {
+            margin-top: 0.5em;
+        }
     }
     &-card {
         display: flex;
@@ -254,4 +279,8 @@
             background-color: var(--brown);
         }
     }
+}
+.v-icon {
+  visibility: visible !important;
+  opacity: 1 !important;
 }
