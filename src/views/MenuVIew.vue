@@ -3,13 +3,43 @@
     <h2 class="title">MENU</h2>
     <div class="menu-content container">
       <GridComponent />
-      <button class="menu-btn submit-btn" @click="orderModalWin = !orderModalWin">Complete</button>
-      <ModalComponent v-if="orderModalWin">
+      <button class="menu-btn submit-btn" @click="isCardConfirmed = !isCardConfirmed">
+        Complete
+      </button>
+      <ModalComponent v-if="isCardConfirmed && getCartProducts.length > 0">
+        <div class="menu-order__modal-win">
+          <div class="menu-cart-content">
+            <button class="menu-order__close" @click="isCardConfirmed = !isCardConfirmed">
+              <img src="@/assets/img/Close_Button.svg" alt="close_button" />
+            </button>
+            <ul class="menu-cart-items">
+              <li class="menu-cart__item" v-for="item in getCartProducts" :key="item.id">
+                <img :src="item.picture" alt="" />
+                <div class="menu-cart__item-text">
+                  <h3 class="menu-cart__item-title">
+                    Product name: <span>{{ item.name }}</span>
+                  </h3>
+                  <span class="menu-cart__item-price"
+                    >Total price: <span>{{ item.price * item.quantity }}</span>
+                  </span>
+                  <span class="menu-cart__item-quantity"
+                    >Quantity: <span>{{ item.quantity }}</span></span
+                  >
+                </div>
+              </li>
+            </ul>
+            <button class="menu-cart__submit menu-btn" @click="switchModalWins">
+              Submit order
+            </button>
+          </div>
+        </div>
+      </ModalComponent>
+      <ModalComponent v-if="isOrderConfirmed">
         <div class="menu-order__modal-win">
           <div class="menu-order-content">
             <form class="menu-order__form">
               <div class="menu-order__form-head">
-                <button class="menu-order__close" @click="orderModalWin = !orderModalWin">
+                <button class="menu-order__close" @click="switchModalWins">
                   <img src="@/assets/img/Close_Button.svg" alt="close_button" />
                 </button>
               </div>
@@ -69,19 +99,26 @@
 
 <script>
 import GridComponent from '@/components/Menu/GridComponent.vue'
-import ModalComponent from '@/components/ModalComponent.vue'
+import ModalComponent from '@/components/Ui/ModalComponent.vue'
 import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['getRegions']),
+    ...mapGetters(['getRegions', 'getCartProducts']),
   },
   components: {
     GridComponent,
     ModalComponent,
   },
+  methods: {
+    switchModalWins() {
+      this.isCardConfirmed = !this.isCardConfirmed
+      this.isOrderConfirmed = !this.isOrderConfirmed
+    },
+  },
   data() {
     return {
-      orderModalWin: false,
+      isCardConfirmed: false,
+      isOrderConfirmed: false,
       currentRegion: '',
       date: new Date(),
       locale: 'en',
@@ -89,6 +126,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

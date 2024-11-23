@@ -1,6 +1,6 @@
 .menu {
     &-order {
-        &__total-price{
+        &__total-price {
             margin-top: 1em;
             border: 1px;
             display: flex;
@@ -9,7 +9,6 @@
         }
         &__date {
             margin-top: 1em;
-
         }
         &__region {
             color: white;
@@ -222,65 +221,109 @@
             }
         }
     }
-}
-.menu-btn {
-    background: #4b2108;
-    font-weight: 700;
-    font-size: 36px;
-    text-align: center;
-    padding: 11px 0;
-    border-radius: 30px;
-    width: 90%;
-    color: white;
-    text-transform: uppercase;
-    &.submit-btn {
-        display: flex;
-        justify-content: center;
-        align-self: flex-end;
-        width: 30%;
-        margin-right: 1em;
-    }
-}
-.menu-order__label {
-    color: #fff;
-    font-size: 18px;
-    text-transform: uppercase;
-    margin-bottom: 1em;
-}
-
-.menu-order__input {
-    width: 100%;
-    font-size: 16px;
-    color: #fff;
-    background-color: var(--brown);
-    border: none;
-    border-radius: 20px;
-    position: relative;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    &::after {
-        content: "🡻";
-        top: 15%;
-        font-size: 16px;
-        padding: 1px 5px;
-        border-radius: 10px;
-        background-color: var(--orange);
-        border: none;
-        right: 5%;
-        position: absolute;
-    }
-    &:hover,
-    &:focus {
-        box-shadow: none;
-        background-color: var(--orange);
-        color: #fff;
-        &::after {
-            background-color: var(--brown);
+    &-btn {
+        background: #4b2108;
+        font-weight: 700;
+        font-size: 36px;
+        text-align: center;
+        padding: 11px 0;
+        border-radius: 30px;
+        width: 90%;
+        color: white;
+        text-transform: uppercase;
+        &.submit-btn {
+            display: flex;
+            justify-content: center;
+            align-self: flex-end;
+            width: 30%;
+            margin-right: 1em;
         }
     }
-}
-.v-icon {
-  visibility: visible !important;
-  opacity: 1 !important;
+    &-order__label {
+        color: #fff;
+        font-size: 18px;
+        text-transform: uppercase;
+        margin-bottom: 1em;
+    }
+
+    &-order__input {
+        width: 100%;
+        font-size: 16px;
+        color: #fff;
+        background-color: var(--brown);
+        border: none;
+        border-radius: 20px;
+        position: relative;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        &::after {
+            content: "🡻";
+            top: 15%;
+            font-size: 16px;
+            padding: 1px 5px;
+            border-radius: 10px;
+            background-color: var(--orange);
+            border: none;
+            right: 5%;
+            position: absolute;
+        }
+        &:hover,
+        &:focus {
+            box-shadow: none;
+            background-color: var(--orange);
+            color: #fff;
+            &::after {
+                background-color: var(--brown);
+            }
+        }
+    }
+    &-cart {
+        &-content{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
+        &__submit {
+            background:#893d0f;
+            display: flex;
+            align-self: flex-end;
+            justify-content: center;
+            width: 40%;
+        }
+        &-items {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        &__item {
+            display: flex;
+            padding: 10px;
+            align-items: stretch;
+            background-color: white;
+            color: var(--brown);
+            border-radius: 15px;
+            gap: 20px;
+            width: 80%;
+            &-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+            &-title,
+            &-price,
+            &-quantity {
+                font-size: 28px;
+                & span {
+                    color: var(--orange);
+                }
+            }
+            img {
+                height: 30%;
+                width: 30%;
+            }
+        }
+    }
 }
