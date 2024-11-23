@@ -3,7 +3,7 @@
     <h2 class="title">MENU</h2>
     <div class="menu-content container">
       <GridComponent />
-      <button class="menu-btn submit-btn" @click="isCardConfirmed = !isCardConfirmed">
+      <button class="menu-btn submit-btn" @click="this.isCardConfirmed = !this.isCardConfirmed">
         Complete
       </button>
       <ModalComponent v-if="isCardConfirmed && getCartProducts.length > 0">
@@ -14,14 +14,11 @@
             </button>
             <ul class="menu-cart-items">
               <li class="menu-cart__item" v-for="item in getCartProducts" :key="item.id">
-                <img :src="item.picture" alt="" />
+                <img :src="item.picture" alt="product image" />
                 <div class="menu-cart__item-text">
                   <h3 class="menu-cart__item-title">
                     Product name: <span>{{ item.name }}</span>
                   </h3>
-                  <span class="menu-cart__item-price"
-                    >Total price: <span>{{ item.price * item.quantity }}</span>
-                  </span>
                   <span class="menu-cart__item-quantity"
                     >Quantity: <span>{{ item.quantity }}</span></span
                   >
@@ -53,25 +50,21 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {{ currentRegion }}
+                    {{ currentRegion.name }}
                   </button>
                   <ul
                     class="dropdown-menu menu-order__regions"
                     aria-labelledby="dropdownMenuButton1"
                   >
-                    <li
-                      v-for="region in getRegions"
-                      :key="region.id"
-                      @click="currentRegion = region.name"
-                    >
+                    <li v-for="region in getRegions" :key="region.id" @click="setRegion(region)">
                       <a class="dropdown-item menu-order__region">{{ region.name }}</a>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="menu-order__date">
+              <div class="menu-order__date" v-show="Object.keys(currentRegion).length > 0">
                 <label class="menu-order__label">Choose date of order:</label>
-                <v-date-picker color="#d5621d">
+                <v-date-picker color="#d5621d" v-model="date">
                   <template v-slot:prev-icon>
                     <v-icon icon="mdi-chevron-left" color="green-darken-2"></v-icon>
                   </template>
@@ -80,14 +73,25 @@
                   </template>
                 </v-date-picker>
               </div>
-              <div class="menu-order__total-price">
+              <div
+                class="menu-order__total-price"
+                v-show="Object.keys(currentRegion).length > 0 && date !== null"
+              >
                 <h3 class="total-price__title">ORDER PRICE</h3>
                 <div class="total-price__price-desc">
-                  <span class="price-title">price: <span>15$</span></span>
-                  <span class="price-title">Discount: <span>-2$</span></span>
-                  <span class="price-title">Tax: <span>1.5$</span></span>
+                  <span class="price-title"
+                    >price: <span>{{ totalCardPrice }}$</span></span
+                  >
+                  <span class="price-title"
+                    >Discount: <span>-{{ totalDiscount }}$</span></span
+                  >
+                  <span class="price-title"
+                    >Tax: <span>{{ totalTax }}$</span></span
+                  >
+                  <span class="price-title"
+                    >Total: <span>{{ totalPrice }}$</span></span
+                  >
                 </div>
-                <span class="price-title">total</span>
               </div>
             </form>
           </div>
@@ -110,6 +114,26 @@ export default {
     ModalComponent,
   },
   methods: {
+    setRegion(currentRegion) {
+      this.currentRegion = currentRegion
+      this.getTotalPrice()
+    },
+    getTotalPrice() {
+      this.totalCardPrice =
+        this.getCartProducts.reduce((sum, item) => {
+          return sum + item.price * item.quantity
+        }, 0) * Math.ceil(this.currentRegion.cost) // total Price From all cart Items
+
+      this.totalTax = Math.ceil(
+        (this.totalCardPrice / 100) * Number.parseFloat(this.currentRegion.vat)
+      ) // Tax
+
+      this.totalDiscount = Math.ceil(
+        (this.totalCardPrice / 100) * Number.parseFloat(this.currentRegion.discount)
+      ) // Discount
+
+      this.totalPrice = this.totalCardPrice + this.totalTax - this.totalDiscount
+    },
     switchModalWins() {
       this.isCardConfirmed = !this.isCardConfirmed
       this.isOrderConfirmed = !this.isOrderConfirmed
@@ -119,8 +143,12 @@ export default {
     return {
       isCardConfirmed: false,
       isOrderConfirmed: false,
-      currentRegion: '',
-      date: new Date(),
+      currentRegion: {},
+      totalDiscount: null,
+      totalTax: null,
+      totalCardPrice: null,
+      totalPrice: null,
+      date: null,
       locale: 'en',
     }
   },
