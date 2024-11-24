@@ -1,4 +1,5 @@
-.registration {
+.registration,
+.login {
     height: 100%;
     width: 100%;
     display: flex;
@@ -10,6 +11,20 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+    }
+}
+.login {
+    .reglog {
+        &__form {
+            & .submit {
+               width: 30%;
+               align-items: center;
+               margin-bottom: 0;
+            }
+        }
+        &__input {
+            width: 30%;
+        }
     }
 }
 .reglog {

@@ -18,7 +18,7 @@
         <div class="reglog__input">
           <v-text-field
             label="Phone Number"
-            v-model="phonenumber"
+            v-model="phoneNumber"
             autocomplete="tel"
             :rules="[
               (v) => !!v || 'Error: This field is mandatory',
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       username: null,
-      phonenumber: null,
+      phoneNumber: null,
       password: null,
       confirmPass: null,
       isHidePass: true,
