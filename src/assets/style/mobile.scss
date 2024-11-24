@@ -1,0 +1,58 @@
+.desktop {
+    display: flex;
+}
+.mobile{
+    display: none;
+}
+@media screen and (max-width: 1200px) {
+    .top-products {
+        .top-card {
+            &__price {
+                padding: 5px 10px;
+            }
+            &__left {
+                & img {
+                    width: 74px;
+                    height: 99px;
+                }
+            }
+        }
+    }
+    .desktop {
+        display: none;
+    }
+    .about-us {
+        &__text {
+            width: 50%;
+        }
+        &__left {
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        &-content {
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+        }
+    }
+    .contacts {
+        padding-bottom: 5em;
+        &-copyright {
+            bottom: -5%;
+        }
+        &-content {
+            flex-direction: column;
+            align-items: center;
+            &__right {
+                width: 110%;
+            }
+        }
+        &-map {
+            width: 100%;
+        }
+    }
+    .top-products__row {
+        gap: 30px;
+    }
+}

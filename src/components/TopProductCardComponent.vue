@@ -4,20 +4,22 @@
       <!-- Простой путь для доступа к изображениям в папке public -->
       <img
         :src="product.picture"
+        :srcset="`${product.picture} 1200w ${product.picture} 768w, ${product.picture} 320w`"
+        sizes="(max-width: 768px) 100vw, 768px"
         alt="Product image"
       />
     </div>
     <div class="top-card__right">
       <div class="top-card__title">
-        <h3 class="top-card__name">{{product.name}}</h3>
+        <h3 class="top-card__name">{{ product.name }}</h3>
         <div class="top-card__price">
-          <span>{{product.price}}$</span>
+          <span>{{ product.price }}$</span>
         </div>
       </div>
-      <span class="top-card__size">{{product.size}}</span>
+      <span class="top-card__size">{{ product.size }}</span>
       <div class="top-card__description">
         <h4>DESCRIPTION</h4>
-        <p>{{product.description}}</p>
+        <p>{{ product.description }}</p>
       </div>
     </div>
   </div>

@@ -10,7 +10,9 @@
           :product="product"
         ></top-product-card-component>
       </div>
-      <WhiteBtn class="top-products__white-btn">All menu</WhiteBtn>
+      <WhiteBtn class="top-products__white-btn">
+        <router-link to="/menu">All menu</router-link>
+      </WhiteBtn>
     </div>
   </section>
 </template>
