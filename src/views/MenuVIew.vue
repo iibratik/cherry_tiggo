@@ -6,7 +6,7 @@
       <button class="menu-btn submit-btn" @click="this.isCardConfirmed = !this.isCardConfirmed">
         Complete
       </button>
-      <ModalComponent v-if="isCardConfirmed && getCartProducts.length > 0">
+      <ModalComponent v-show="isCardConfirmed && getCartProducts.length > 0">
         <div class="menu-order__modal-win">
           <div class="menu-cart-content">
             <button class="menu-order__close" @click="isCardConfirmed = !isCardConfirmed">
@@ -31,10 +31,10 @@
           </div>
         </div>
       </ModalComponent>
-      <ModalComponent v-if="isOrderConfirmed">
+      <ModalComponent v-show="isOrderConfirmed">
         <div class="menu-order__modal-win">
           <div class="menu-order-content">
-            <form class="menu-order__form">
+            <form class="menu-order__form" @submit.prevent>
               <div class="menu-order__form-head">
                 <button class="menu-order__close" @click="switchModalWins">
                   <img src="@/assets/img/Close_Button.svg" alt="close_button" />
@@ -62,38 +62,54 @@
                   </ul>
                 </div>
               </div>
-              <div class="menu-order__date" v-show="Object.keys(currentRegion).length > 0">
-                <label class="menu-order__label">Choose date of order:</label>
-                <v-date-picker color="#d5621d" v-model="date">
-                  <template v-slot:prev-icon>
-                    <v-icon icon="mdi-chevron-left" color="green-darken-2"></v-icon>
-                  </template>
-                  <template v-slot:next-icon>
-                    <v-icon icon="mdi-chevron-right"></v-icon>
-                  </template>
-                </v-date-picker>
-              </div>
-              <div
-                class="menu-order__total-price"
-                v-show="Object.keys(currentRegion).length > 0 && date !== null"
-              >
-                <h3 class="total-price__title">ORDER PRICE</h3>
-                <div class="total-price__price-desc">
-                  <span class="price-title"
-                    >price: <span>{{ totalCardPrice }}$</span></span
-                  >
-                  <span class="price-title"
-                    >Discount: <span>-{{ totalDiscount }}$</span></span
-                  >
-                  <span class="price-title"
-                    >Tax: <span>{{ totalTax }}$</span></span
-                  >
-                  <span class="price-title"
-                    >Total: <span>{{ totalPrice }}$</span></span
-                  >
+              <div class="menu-order__date-total">
+                <div class="menu-order__date" v-show="Object.keys(currentRegion).length > 0">
+                  <label class="menu-order__label">Choose date of order:</label>
+                  <v-date-picker color="#d5621d" v-model="date"> </v-date-picker>
+                </div>
+                <div
+                  class="menu-order__total"
+                  v-show="Object.keys(currentRegion).length > 0 && date !== null"
+                >
+                  <div class="menu-order__total-price">
+                    <h3 class="menu-order__total-price-title">ORDER PRICE</h3>
+                    <div class="menu-order__total-price-desc">
+                      <div class="price-text">
+                        <span class="price-title">price: </span>
+                        <span class="price-value">{{ totalCardPrice }}$</span>
+                      </div>
+                      <div class="price-text">
+                        <span class="price-title">Discount: </span>
+                        <span class="price-value">-{{ totalDiscount }}$</span>
+                      </div>
+                      <div class="price-text">
+                        <span class="price-title">Tax: </span>
+                        <span class="price-value">{{ totalTax }}$</span>
+                      </div>
+                      <div class="price-text">
+                        <span class="price-title">Total: </span>
+                        <span class="price-value">{{ totalPrice }}$</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="menu-btn menu-order__submit" @click="submitForm" type="submit">
+                    submit
+                  </button>
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+      </ModalComponent>
+      <ModalComponent v-show="isSubmited">
+        <div class="menu-submited__modal-win">
+          <div class="menu-submited-content">
+            <img src="@/assets/img/check.svg" alt="check image" />
+            <span class="menu-submited-title"
+              >ORder created <br />
+              successfully !</span
+            >
+            <router-link to="/" class="menu-submited-btn">return to main page</router-link>
           </div>
         </div>
       </ModalComponent>
@@ -104,6 +120,7 @@
 <script>
 import GridComponent from '@/components/Menu/GridComponent.vue'
 import ModalComponent from '@/components/Ui/ModalComponent.vue'
+
 import { mapGetters } from 'vuex'
 export default {
   computed: {
@@ -114,6 +131,11 @@ export default {
     ModalComponent,
   },
   methods: {
+    reloadRoute() {},
+    submitForm() {
+      this.isSubmited = !this.isSubmited
+      this.isOrderConfirmed = !this.isOrderConfirmed
+    },
     setRegion(currentRegion) {
       this.currentRegion = currentRegion
       this.getTotalPrice()
@@ -141,6 +163,7 @@ export default {
   },
   data() {
     return {
+      isSubmited: false,
       isCardConfirmed: false,
       isOrderConfirmed: false,
       currentRegion: {},

@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import ModalComponent from '@/components/Ui/ModalComponent.vue'
+import ModalComponent from '@/components/UI/ModalComponent.vue'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {

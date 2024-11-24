@@ -143,15 +143,16 @@ const store = createStore({
                 date: new Date(),
                 totalPrice: 0
             },
-            cart: [
-            ],
             regions: [
                 { id: 0, name: 'Uzbekistan', vat: 15, discount: 3, cost: 1.00 },
                 { id: 1, name: 'Kazakhstan', vat: 20, discount: 5, cost: 5.00 },
                 { id: 2, name: 'Georgia', vat: 12, discount: 7, cost: 7.00 },
                 { id: 3, name: 'Ukraina', vat: 8, discount: 10, cost: 10.00 },
                 { id: 4, name: 'China', vat: 18, discount: 15, cost: 50.00 },
-            ]
+            ],
+            cart: [
+            ],
+            isAuth: JSON.parse(localStorage.getItem('isAuth')) || false,
         };
     },
     mutations: {
@@ -218,6 +219,9 @@ const store = createStore({
 
     },
     getters: {
+        getIsAuth(state) {
+            return state.isAuth
+        },
         getCartProducts(state) {
             return state.cart
         },

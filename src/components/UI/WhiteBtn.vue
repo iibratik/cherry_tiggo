@@ -1,11 +1,11 @@
 <template>
-  <button type="button" class="btn btn-light white-btn"><slot></slot></button>
+  <div class="btn btn-light white-btn">
+ <slot></slot>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
