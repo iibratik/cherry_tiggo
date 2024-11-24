@@ -1,6 +1,9 @@
 .navbar {
-    margin-top: 1em;
+    .offcanvas {
+        background: var(--brown);
+    }
     margin-bottom: 1em;
+    background-color: var(--brown);
     &-title {
         font-family: Aclonica;
         color: white;

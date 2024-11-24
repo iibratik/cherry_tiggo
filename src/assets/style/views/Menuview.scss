@@ -31,6 +31,9 @@
         }
     }
     &-order {
+        &__close {
+            font-size: 36px;
+        }
         &__total {
             display: flex;
             flex-direction: column;
@@ -149,7 +152,6 @@
                 align-items: flex-end;
                 justify-content: space-between;
                 button {
-                    height: 2em;
                     border-radius: 30px;
                     img {
                         width: 100%;
@@ -180,8 +182,9 @@
     &-grid {
         &-content {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            justify-content: center;
+            grid-template-columns: repeat(3, 25%);
+            justify-items: center;
+            justify-content: space-between;
             align-items: center;
             gap: 30px;
             color: black;
@@ -270,8 +273,7 @@
                 }
             }
             & .arrow-back {
-                transform: translateX(-15px);
-                background-color: var(--brown);
+                font-size: 36px;
             }
         }
 

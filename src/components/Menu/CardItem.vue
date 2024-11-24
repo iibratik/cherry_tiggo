@@ -3,11 +3,18 @@
     <ModalComponent v-if="imageModalWin">
       <div class="menu-card__modal-win">
         <button @click="imageModalWin = !imageModalWin" class="arrow-back">
-          <img src="@/assets/img/arrow_back.svg" alt="arrow-back" />
+          <i class="fa-solid fa-arrow-left-long"></i>
         </button>
         <div class="modal-win__body">
           <div class="modal-win__img">
-            <img :src="product.picture" :alt="product.imgDesc" />
+            <img
+              :src="product.picture"
+              :alt="product.imgDesc"
+              :srcset="`${product.picture} 1200w, ${product.picture} 768w, ${product.picture} 320w`"
+              sizes="(max-width: 320px) 320px,
+         (max-width: 768px) 768px,
+         1200px"
+            />
           </div>
           <h3 class="modal-win__title">{{ product.name }}</h3>
           <div class="modal-win__text">
@@ -17,12 +24,7 @@
             </div>
             <div class="modal-win__right">
               <div class="modal-win-raiting">
-                <img
-                  src="@/assets/img/stars.svg"
-                  alt="raiting stars"
-                  v-for="star in product.raiting"
-                  :key="star"
-                />
+                <i class="fa-regular fa-star" v-for="star in product.raiting" :key="star"></i>
               </div>
               <span class="modal-win__price">Price: {{ product.price }}$</span>
             </div>
@@ -33,7 +35,14 @@
 
     <div class="menu-card-content">
       <button @click="imageModalWin = !imageModalWin">
-        <img :src="product.picture" :alt="product.imgDesc" />
+        <img
+          :src="product.picture"
+          :srcset="`${product.picture} 1200w, ${product.picture} 768w, ${product.picture} 320w`"
+          sizes="(max-width: 320px) 320px,
+         (max-width: 768px) 768px,
+         1200px"
+          :alt="product.imgDesc"
+        />
       </button>
       <div class="menu-card-body">
         <h3 class="menu-card__title">{{ product.name }}</h3>

@@ -4,7 +4,7 @@
       <h2 class="title top-products__title">POPULAR PRODUCTS</h2>
       <div class="top-products__row row">
         <top-product-card-component
-          class="col-5"
+          class="col-xl-5 col-lg-5 col-sm-12 col-xs-12"
           v-for="product in getTopProducts"
           :key="product.id"
           :product="product"

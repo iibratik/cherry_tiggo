@@ -10,7 +10,7 @@
         <div class="menu-order__modal-win">
           <div class="menu-cart-content">
             <button class="menu-order__close" @click="isCardConfirmed = !isCardConfirmed">
-              <img src="@/assets/img/Close_Button.svg" alt="close_button" />
+              <i class="fa-solid fa-xmark"></i>
             </button>
             <ul class="menu-cart-items">
               <li class="menu-cart__item" v-for="item in getCartProducts" :key="item.id">
@@ -32,12 +32,12 @@
         </div>
       </ModalComponent>
       <ModalComponent v-show="isOrderConfirmed">
-        <div class="menu-order__modal-win">
+        <div class="menu-order__modal-win ">
           <div class="menu-order-content">
             <form class="menu-order__form" @submit.prevent>
               <div class="menu-order__form-head">
                 <button class="menu-order__close" @click="switchModalWins">
-                  <img src="@/assets/img/Close_Button.svg" alt="close_button" />
+                  <i class="fa-solid fa-xmark"></i>
                 </button>
               </div>
               <div class="menu-order__dropdown">

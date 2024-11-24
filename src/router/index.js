@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,  
+      component: HomeView,
     },
     {
       path: '/menu',
@@ -36,6 +36,15 @@ const router = createRouter({
       meta: { hideNavigation: true },
     },
   ],
+  scrollBehavior(to) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth', // Для плавной прокрутки
+      };
+    }
+    return { top: 0 };
+  },
 })
 
 export default router
