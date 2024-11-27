@@ -7,11 +7,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import CardItem from './CardItem.vue'
 export default {
   components: {
     CardItem,
+  },
+  methods: {
+    ...mapActions(['fetchAllProducts','fetchTopProducts' ]),
+  },
+  mounted() {
+    this.fetchAllProducts()
+    this.fetchTopProducts()
   },
   computed: {
     ...mapGetters(['getAllProducts']),
