@@ -182,7 +182,7 @@
     &-grid {
         &-content {
             display: grid;
-            grid-template-columns: repeat(3, 25%);
+            grid-template-columns: repeat(3, 32%);
             justify-items: center;
             justify-content: space-between;
             align-items: center;
@@ -281,7 +281,7 @@
             display: flex;
             align-items: center;
             gap: 3px;
-            padding: 10px 30px;
+            padding: 10px 15px;
             border: 2px solid var(--orange);
             border-radius: 30px;
             color: var(--orange);
@@ -295,12 +295,13 @@
         }
         &-body {
             margin-top: 15px;
+            gap: 10px ;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         &__title {
-            font-size: 32px;
+            font-size: 24px;
             font-family: Actor;
         }
         &-content {

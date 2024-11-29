@@ -13,6 +13,13 @@ export default {
   components: {
     CardItem,
   },
+  methods: {
+    ...mapActions(['fetchAllProducts','fetchTopProducts' ]),
+  },
+  mounted() {
+    this.fetchAllProducts()
+    this.fetchTopProducts()
+  },
   computed: {
     ...mapGetters(['getAllProducts']),
   },
