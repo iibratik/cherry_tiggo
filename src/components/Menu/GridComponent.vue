@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import CardItem from './CardItem.vue'
 export default {
   components: {
@@ -15,6 +15,12 @@ export default {
   },
   computed: {
     ...mapGetters(['getAllProducts']),
+  },
+  methods: {
+    ...mapActions(['fetchAllProducts']),
+  },
+  mounted() {
+    this.fetchAllProducts()
   },
 }
 </script>

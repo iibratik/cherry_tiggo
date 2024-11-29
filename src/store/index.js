@@ -1,6 +1,7 @@
 // src/store/index.js
-import { createStore } from 'vuex';
 
+import axios from 'axios';
+import { createStore } from 'vuex';
 const store = createStore({
     state() {
         return {
@@ -182,6 +183,9 @@ const store = createStore({
                 state.cart = state.cart.filter(item => item.id !== productId);
             }
         },
+        clearCart(state) {
+            state.cart = []
+        },
         minusQuantity(state, { productId }) {
             const product = state.cart.find(item => item.id === productId);
             if (product && product.quantity > 0) {
@@ -190,8 +194,12 @@ const store = createStore({
                 state.cart = state.cart.filter(item => item.id !== productId);
             }
         },
+
     },
     actions: {
+        cleanCart({ commit }) {
+            commit('cleanCart');
+        },
         addOrUpdateCart({ commit, state }, product) {
             // Проверяем, есть ли продукт в корзине
             const cartItem = state.cart.find(item => item.id === product.id);
@@ -215,8 +223,22 @@ const store = createStore({
                     commit('removeFromCart', cartItem.id);
                 }
             }
-        }
+        },
+        async fetchAllProducts() {
+            axios.get('https://f651-46-255-65-171.ngrok-free.app/orders', {
+                headers: {
+                    'Accept': '*/*',
 
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+        }
     },
     getters: {
         getIsAuth(state) {

@@ -32,7 +32,6 @@
         </div>
       </div>
     </ModalComponent>
-
     <div class="menu-card-content">
       <button @click="imageModalWin = !imageModalWin">
         <img
@@ -117,5 +116,6 @@ export default {
       }
     },
   },
+
 }
 </script>

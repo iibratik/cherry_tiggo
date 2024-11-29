@@ -32,7 +32,7 @@
         </div>
       </ModalComponent>
       <ModalComponent v-show="isOrderConfirmed">
-        <div class="menu-order__modal-win ">
+        <div class="menu-order__modal-win">
           <div class="menu-order-content">
             <form class="menu-order__form" @submit.prevent>
               <div class="menu-order__form-head">
@@ -65,7 +65,8 @@
               <div class="menu-order__date-total">
                 <div class="menu-order__date" v-show="Object.keys(currentRegion).length > 0">
                   <label class="menu-order__label">Choose date of order:</label>
-                  <v-date-picker color="#d5621d" v-model="date"> </v-date-picker>
+                  <v-date-picker color="#d5621d" v-model="date" :allowed-dates="isDateAllowed">
+                  </v-date-picker>
                 </div>
                 <div
                   class="menu-order__total"
@@ -121,7 +122,7 @@
 import GridComponent from '@/components/Menu/GridComponent.vue'
 import ModalComponent from '@/components/Ui/ModalComponent.vue'
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters(['getRegions', 'getCartProducts']),
@@ -131,10 +132,11 @@ export default {
     ModalComponent,
   },
   methods: {
-    reloadRoute() {},
+    ...mapActions['cleanCart'],
     submitForm() {
       this.isSubmited = !this.isSubmited
       this.isOrderConfirmed = !this.isOrderConfirmed
+      this.cleanCart()
     },
     setRegion(currentRegion) {
       this.currentRegion = currentRegion
@@ -160,6 +162,11 @@ export default {
       this.isCardConfirmed = !this.isCardConfirmed
       this.isOrderConfirmed = !this.isOrderConfirmed
     },
+    isDateAllowed(date) {
+      const today = new Date()
+      const selectedDate = new Date(date)
+      return selectedDate >= today // Разрешить только сегодняшнюю дату и позже
+    },
   },
   data() {
     return {
@@ -173,6 +180,7 @@ export default {
       totalPrice: null,
       date: null,
       locale: 'en',
+      minDate: new Date().toISOString().split('T')[0],
     }
   },
 }
