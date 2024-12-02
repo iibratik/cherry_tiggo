@@ -101,6 +101,22 @@
     }
 }
 @media screen and (max-width: 991px) {
+    .menu-card__modal-win .modal-win__text{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .menu-card__modal-win .modal-win__left{
+        margin-left: 0;
+    }
+    .menu-card__modal-win .modal-win__title{
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .menu-card__modal-win .modal-win__img{
+        padding: 10px;
+    }
     .menu-order__date-total {
         flex-direction: column;
     }

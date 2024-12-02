@@ -127,10 +127,10 @@ export default {
         totalQuantity = totalQuantity + element.quantity
       }
       const submitData = {
-        quantity: totalQuantity,
+        quantity: totalQuantity.toString(),
         region: this.currentRegion.name,
         date: this.formatDate(this.date),
-        price: this.totalPrice,
+        price: this.totalPrice.toString(),
         userid: 11
       }
       this.createOrderDetails(JSON.stringify(submitData))
@@ -145,18 +145,33 @@ export default {
     getTotalPrice() {
       this.totalCardPrice =
         this.getCartProducts.reduce((sum, item) => {
-          return sum + item.price * item.quantity
-        }, 0) * Math.ceil(this.currentRegion.cost) // total Price From all cart Items
+          return sum + item.price * item.quantity;
+        }, 0) // total Price From all cart Items
 
       this.totalTax = Math.ceil(
         (this.totalCardPrice / 100) * Number.parseFloat(this.currentRegion.vat)
-      ) // Tax
+      ); // Tax
+
+      // Calculate discount based on the order cost
+      let discountPercentage = 0;
+      if (this.totalCardPrice >= 50) {
+        discountPercentage = 15;
+      } else if (this.totalCardPrice >= 10) {
+        discountPercentage = 10;
+      } else if (this.totalCardPrice >= 7) {
+        discountPercentage = 7;
+      } else if (this.totalCardPrice >= 5) {
+        discountPercentage = 5;
+      } else if (this.totalCardPrice >= 1) {
+        discountPercentage = 3;
+      }
 
       this.totalDiscount = Math.ceil(
-        (this.totalCardPrice / 100) * Number.parseFloat(this.currentRegion.discount)
-      ) // Discount
+        (this.totalCardPrice / 100) * discountPercentage
+      ); // Discount
 
-      this.totalPrice = this.totalCardPrice + this.totalTax - this.totalDiscount
+      this.totalPrice = this.totalCardPrice + this.totalTax - this.totalDiscount;
+
     },
     switchModalWins() {
       this.isCardConfirmed = !this.isCardConfirmed
@@ -165,7 +180,7 @@ export default {
     isDateAllowed(date) {
       const today = new Date()
       const selectedDate = new Date(date)
-      return selectedDate >= today // Разрешить только сегодняшнюю дату и позже
+      return selectedDate >= today
     },
   },
   data() {

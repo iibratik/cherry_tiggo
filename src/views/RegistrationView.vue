@@ -99,8 +99,6 @@ export default {
         password: this.password
       }      
       await this.sendNewUser(JSON.stringify(newUser))
-      console.log(this.getUserId);
-      
     }
   },
 }

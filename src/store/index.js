@@ -9,6 +9,7 @@ const store = createStore({
 
             ],
             allProducts: [
+ 
             ],
             regions: [
                 { id: 0, name: 'Uzbekistan', vat: 15, discount: 3, cost: 1.00 },
@@ -67,7 +68,7 @@ const store = createStore({
         setTopProducts(state, products) {
             state.topProducts = products
         },
-        setUserId(state, payload){
+        setUserId(state, payload) {
             state.userId = payload
         }
 
@@ -119,8 +120,7 @@ const store = createStore({
                     console.error('Error fetching data:', error);
                 });
         },
-        async createOrderDetails({}, orderData) {
-            console.log(orderData);
+        async createOrderDetails(orderData) {
             try {
                 const response = await axios.post('api/order/create', orderData, {
                     headers: {
@@ -128,38 +128,33 @@ const store = createStore({
                     }
                 });
 
-                console.log('Order successfully created:', response.data);
             } catch (error) {
                 console.error('Error creating order:', error);
                 // Handle the error (e.g., show an error message)
             }
         },
-        async sendNewUser({ commit },newUserData) {
-            console.log(newUserData);
+        async sendNewUser({ commit }, newUserData) {
             try {
-                const response = await axios.post('api/user/register', newUserData, {
+                const response = await axios.post('/user/register', newUserData, {
                     headers: {
                         'Content-Type': 'application/json' // Adjust if needed based on the expected content type
                     }
                 });
                 commit('setUserId', response.data)
-                console.log('Registration', response.data);
             } catch (error) {
                 console.error('Reg err:', error);
                 // Handle the error (e.g., show an error message)
             }
         },
-        async sendLoginUser({commit}, userData){
-            console.log(userData);
-            
+        async sendLoginUser({ commit }, userData) {
+
             try {
-                const response = await axios.post('api/user/login', userData, {
+                const response = await axios.post('/user/login', userData, {
                     headers: {
                         'Content-Type': 'application/json' // Adjust if needed based on the expected content type
                     }
                 });
                 commit('setUserId', response.data)
-                console.log('login', response.data);
             } catch (error) {
                 console.error('Reg err:', error);
                 // Handle the error (e.g., show an error message)
@@ -167,7 +162,7 @@ const store = createStore({
         }
     },
     getters: {
-        getUserId(state){
+        getUserId(state) {
             return state.userId
         },
         getIsAuth(state) {

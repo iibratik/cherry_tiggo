@@ -16,6 +16,11 @@
             >contacts</router-link
           >
         </li>
+        <li class="list-item">
+          <router-link class="list-item__link" :to="{ path: '/doc'}"
+            >reports</router-link
+          >
+        </li>
       </ul>
       <WhiteBtn v-show="!isAuth">
         <router-link to="/register">Sign up</router-link>
@@ -66,6 +71,12 @@
                 >contacts</router-link
               >
             </li>
+            <li class="list-item">
+              <router-link class="list-item__link" :to="{ path: '/doc'}"
+                >reports</router-link
+              >
+            </li>
+            
           </ul>
           <WhiteBtn v-show="!isAuth">
             <router-link to="/register">Sign up</router-link>

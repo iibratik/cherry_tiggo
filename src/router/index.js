@@ -22,6 +22,7 @@ const router = createRouter({
       path: '/doc',
       name: 'Doc',
       component: Doc,
+      meta: { hideNavigation: true },
     },
     {
       path: '/register',
@@ -40,7 +41,7 @@ const router = createRouter({
     if (to.hash) {
       return {
         el: to.hash,
-        behavior: 'smooth', // Для плавной прокрутки
+        behavior: 'smooth',
       };
     }
     return { top: 0 };

@@ -10,7 +10,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted() {
+    setInterval(() => {
+      console.clear()
+    }, 12000);
+  },
+}
 </script>
 
 <style lang="scss" scoped>

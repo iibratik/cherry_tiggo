@@ -24,7 +24,7 @@
             </div>
             <div class="modal-win__right">
               <div class="modal-win-raiting">
-                <i class="fa-regular fa-star" v-for="star in product.raiting" :key="star"></i>
+                <i class="fa-regular fa-star" v-for="star in  Math.ceil(product.rating)" :key="star"></i>
               </div>
               <span class="modal-win__price">Price: {{ product.price }}$</span>
             </div>
@@ -54,7 +54,7 @@
     <div class="menu-order-btns">
       <button class="menu-btn" v-show="!isOrdering" @mouseenter="showOrderQuantity">Order</button>
       <div class="menu-order-quantity" v-show="isOrdering" @mouseleave="resetOrderView">
-        <button class="menu-order-quantity__btn" @click="minusOrDeleteCart()">
+        <button class="menu-order-quantity__btn" @click="minusOrRemoveCart()">
           <i class="fa-solid fa-minus"></i>
         </button>
         {{ productAmount }}
@@ -88,29 +88,27 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addOrUpdateCart']),
+    ...mapActions(['addOrUpdateCart','minusorDeleteCart']),
     addToCart() {
-      this.$store.dispatch('addOrUpdateCart', this.product)
+      this.addOrUpdateCart(this.product)
       this.showOrderQuantity()
     },
     showOrderQuantity() {
-      // Устанавливает состояние isOrdering и проверяет количество
       this.isOrdering = true
       const cartProduct = this.getCartProducts.find(
         (cartProduct) => cartProduct.id === this.product.id
       )
       if (cartProduct) {
-        this.productAmount = cartProduct.quantity // Используем количество из свойства quantity
+        this.productAmount = cartProduct.quantity
       } else {
-        this.productAmount = 0 // Если продукт не найден
+        this.productAmount = 0 
       }
     },
-    minusOrDeleteCart() {
-      this.$store.dispatch('minusorDeleteCart', this.product)
+    minusOrRemoveCart() {
+      this.minusorDeleteCart(this.product)
       this.showOrderQuantity()
     },
     resetOrderView() {
-      // Возвращает к кнопке, если productAmount === 0
       if (this.productAmount === 0) {
         this.isOrdering = false
       }
