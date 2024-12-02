@@ -73,6 +73,7 @@
 
 <script>
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
+import router from '@/router';
 import { mapActions, mapGetters } from 'vuex';
 export default {
   computed:{
@@ -99,6 +100,8 @@ export default {
         password: this.password
       }      
       await this.sendNewUser(JSON.stringify(newUser))
+      router.push({path: '/'})
+
     }
   },
 }

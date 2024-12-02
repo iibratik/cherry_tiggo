@@ -127,11 +127,11 @@ export default {
         totalQuantity = totalQuantity + element.quantity
       }
       const submitData = {
-        quantity: totalQuantity.toString(),
+        quantity: totalQuantity,
         region: this.currentRegion.name,
         date: this.formatDate(this.date),
         price: this.totalPrice.toString(),
-        userid: 11
+        userid: `11`
       }
       this.createOrderDetails(JSON.stringify(submitData))
     },

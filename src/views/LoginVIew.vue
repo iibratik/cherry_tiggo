@@ -51,6 +51,7 @@
 
 <script>
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
+import router from '@/router';
 import { mapActions } from 'vuex';
 export default {
   components: {
@@ -65,12 +66,13 @@ export default {
   },
   methods:{
     ...mapActions(['sendLoginUser']),
-    loginUser(){
+    async loginUser(){
         const sendData = {
           phoneNumber: this.phoneNumber.toString(),
           password: this.password
         }
-        this.sendLoginUser(JSON.stringify(sendData))
+        await this.sendLoginUser(JSON.stringify(sendData))
+        router.push({path: '/'})
     }
   }
 }

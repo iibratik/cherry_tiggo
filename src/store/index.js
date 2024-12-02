@@ -112,7 +112,7 @@ const store = createStore({
 
         },
         async fetchTopProducts({ commit }) {
-            axios.get('api/products/all')
+            axios.get('api/products/top')
                 .then(response => {
                     commit('setTopProducts', response.data);
                 })
@@ -135,7 +135,7 @@ const store = createStore({
         },
         async sendNewUser({ commit }, newUserData) {
             try {
-                const response = await axios.post('/user/register', newUserData, {
+                const response = await axios.post('api/user/register', newUserData, {
                     headers: {
                         'Content-Type': 'application/json' // Adjust if needed based on the expected content type
                     }
@@ -149,7 +149,7 @@ const store = createStore({
         async sendLoginUser({ commit }, userData) {
 
             try {
-                const response = await axios.post('/user/login', userData, {
+                const response = await axios.post('api/user/login', userData, {
                     headers: {
                         'Content-Type': 'application/json' // Adjust if needed based on the expected content type
                     }
