@@ -4,6 +4,7 @@ import MenuView from "@/views/MenuView.vue"
 import Registration from "@/views/RegistrationView.vue"
 import Login from "@/views/LoginVIew.vue"
 import Doc from "@/views/DocView.vue"
+import SummaryOrderView from '@/views/SummaryOrderView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,12 @@ const router = createRouter({
       path: '/register',
       name: 'Registration',
       component: Registration,
+      meta: { hideNavigation: true },
+    },
+    {
+      path: '/summary-order',
+      name: 'SummaryOrder',
+      component: SummaryOrderView,
       meta: { hideNavigation: true },
     },
     {

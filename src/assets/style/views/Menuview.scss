@@ -14,16 +14,19 @@
             line-height: 150%;
         }
         &__modal-win {
-            height: 90%;
+            height: 100%;
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
         &-content {
             background-color: #ff5c00;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             & img {
                 width: 60%;
                 height: 40%;
