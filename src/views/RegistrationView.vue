@@ -64,7 +64,11 @@
             <i :class="isHideConfPass ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
           </button>
         </div>
-        <WhiteBtn class="submit" ><button @click="createNewUser()" type="submit" class="submit">Get Stated</button></WhiteBtn>
+        <WhiteBtn class="submit"
+          ><button @click="createNewUser()" type="submit" class="submit">
+            Get Stated
+          </button></WhiteBtn
+        >
         <span>Already have an account? <router-link to="/login">Log in</router-link></span>
       </form>
     </div>
@@ -73,11 +77,11 @@
 
 <script>
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
-import router from '@/router';
-import { mapActions, mapGetters } from 'vuex';
+import router from '@/router'
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  computed:{
-    ...mapGetters(['getUserId'])
+  computed: {
+    ...mapGetters(['getUserId']),
   },
   data() {
     return {
@@ -93,84 +97,84 @@ export default {
   methods: {
     ...mapActions(['sendNewUser']),
     async createNewUser() {
-  // Проверяем, что поля соответствуют правилам
-  const usernameRules = [
-    (v) => !!v || 'Error: This field is mandatory',
-    (v) => v.length >= 5 || 'Error: Minimum 5 characters required',
-    (v) => /^[a-zA-Z]+$/.test(v) || 'Error: Only Latin letters are allowed',
-  ];
-
-  const phoneNumberRules = [
-    (v) => !!v || 'Error: This field is mandatory',
-    (v) =>
-      /^(\+?\d{1,4}[\s\-]?)?(\(?\d{3}\)?[\s\-]?)?[\d\s\-]{7,15}$/.test(v) ||
-      'Error: Invalid phone number Format: 998112223344',
-  ];
-
-  const passwordRules = [
-    (v) => !!v || 'Error: This field is mandatory',
-    (v) => v.length >= 8 || 'Error: Minimum 8 characters required',
-    (v) => /[A-Z]/.test(v) || 'Error: Password must contain at least one uppercase letter',
-    (v) => /\d/.test(v) || 'Error: Password must contain at least one number',
-    (v) =>
-      /[!@#$%^&*(),.?:{}|<>]/.test(v) ||
-      'Error: Password must contain at least one special character',
-  ];
-
-  const confirmPasswordRules = [
-    (v) => !!v || 'Error: This field is mandatory',
-    (v) => v === this.password || 'Error: Passwords do not match',
-  ];
-
-  const validateField = (value, rules) => {
-    for (const rule of rules) {
-      const error = rule(value);
-      if (error !== true) {
-        return error; // Возвращаем первую ошибку
-      }
-    }
-    return true; // Если ошибок нет
-  };
-
-  // Проверяем каждое поле
-  const usernameError = validateField(this.username, usernameRules);
-  const phoneNumberError = validateField(this.phoneNumber, phoneNumberRules);
-  const passwordError = validateField(this.password, passwordRules);
-  const confirmPasswordError = validateField(this.confirmPass, confirmPasswordRules);
-
-  if (
-    usernameError !== true ||
-    phoneNumberError !== true ||
-    passwordError !== true ||
-    confirmPasswordError !== true
-  ) {
-    alert(
-      [
-        usernameError !== true ? usernameError : '',
-        phoneNumberError !== true ? phoneNumberError : '',
-        passwordError !== true ? passwordError : '',
-        confirmPasswordError !== true ? confirmPasswordError : '',
+      // Проверяем, что поля соответствуют правилам
+      const usernameRules = [
+        (v) => !!v || 'Error: This field is mandatory',
+        (v) => v.length >= 5 || 'Error: Minimum 5 characters required',
+        (v) => /^[a-zA-Z]+$/.test(v) || 'Error: Only Latin letters are allowed',
       ]
-        .filter(Boolean)
-        .join('\n')
-    );
-    return; // Не выполняем метод, если есть ошибки
-  }
 
-  // Если всё корректно, отправляем данные
-  const newUser = {
-    fullName: this.username,
-    phone: this.phoneNumber,
-    password: this.password,
-  };
+      const phoneNumberRules = [
+        (v) => !!v || 'Error: This field is mandatory',
+        (v) =>
+          /^(\+?\d{1,4}[\s-]?)?(\(?\d{3}\)?[\s-]?)?[\d\s-]{7,15}$/.test(v) ||
+          'Error: Invalid phone number Format: 998112223344',
+      ]
 
-  try {
-    await this.sendNewUser(JSON.stringify(newUser));
-    router.push({ path: '/' });
-  } catch (error) {
-    console.error('Error creating user:', error);
-  }
-}
+      const passwordRules = [
+        (v) => !!v || 'Error: This field is mandatory',
+        (v) => v.length >= 8 || 'Error: Minimum 8 characters required',
+        (v) => /[A-Z]/.test(v) || 'Error: Password must contain at least one uppercase letter',
+        (v) => /\d/.test(v) || 'Error: Password must contain at least one number',
+        (v) =>
+          /[!@#$%^&*(),.?:{}|<>]/.test(v) ||
+          'Error: Password must contain at least one special character',
+      ]
+
+      const confirmPasswordRules = [
+        (v) => !!v || 'Error: This field is mandatory',
+        (v) => v === this.password || 'Error: Passwords do not match',
+      ]
+
+      const validateField = (value, rules) => {
+        for (const rule of rules) {
+          const error = rule(value)
+          if (error !== true) {
+            return error // Возвращаем первую ошибку
+          }
+        }
+        return true // Если ошибок нет
+      }
+
+      // Проверяем каждое поле
+      const usernameError = validateField(this.username, usernameRules)
+      const phoneNumberError = validateField(this.phoneNumber, phoneNumberRules)
+      const passwordError = validateField(this.password, passwordRules)
+      const confirmPasswordError = validateField(this.confirmPass, confirmPasswordRules)
+
+      if (
+        usernameError !== true ||
+        phoneNumberError !== true ||
+        passwordError !== true ||
+        confirmPasswordError !== true
+      ) {
+        alert(
+          [
+            usernameError !== true ? usernameError : '',
+            phoneNumberError !== true ? phoneNumberError : '',
+            passwordError !== true ? passwordError : '',
+            confirmPasswordError !== true ? confirmPasswordError : '',
+          ]
+            .filter(Boolean)
+            .join('\n')
+        )
+        return // Не выполняем метод, если есть ошибки
+      }
+
+      // Если всё корректно, отправляем данные
+      const newUser = {
+        fullName: this.username,
+        phone: this.phoneNumber,
+        password: this.password,
+      }
+
+      try {
+        await this.sendNewUser(JSON.stringify(newUser))
+        router.push({ path: '/' })
+      } catch (error) {
+        console.error('Error creating user:', error)
+      }
+    },
   },
 }
 </script>

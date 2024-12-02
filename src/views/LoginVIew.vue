@@ -40,8 +40,7 @@
             <i :class="isHidePass ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
           </button>
         </div>
-        <WhiteBtn class="submit"
-        @click="loginUser()"
+        <WhiteBtn class="submit" @click="loginUser()"
           ><button type="submit" class="submit">Continue Your Journey !</button></WhiteBtn
         >
       </form>
@@ -51,79 +50,79 @@
 
 <script>
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
-import router from '@/router';
-import { mapActions } from 'vuex';
+import router from '@/router'
+import { mapActions } from 'vuex'
 export default {
   components: {
     WhiteBtn,
   },
-  data(){
-    return{
-        phoneNumber:null,
-        password:null,
-        isHidePass: true,
+  data() {
+    return {
+      phoneNumber: null,
+      password: null,
+      isHidePass: true,
     }
   },
-  methods:{
+  methods: {
     ...mapActions(['sendLoginUser']),
     async loginUser() {
-  // Правила для проверки полей
-  const phoneNumberRules = [
-    (v) => !!v || 'Error: This field is mandatory',
-    (v) =>
-      /^(\+?\d{1,4}[\s\-]?)?(\(?\d{3}\)?[\s\-]?)?[\d\s\-]{7,15}$/.test(v) ||
-      'Error: Invalid phone number Format: 998112223344',
-  ];
-
-  const passwordRules = [
-    (v) => !!v || 'Error: This field is mandatory',
-    (v) => v.length >= 8 || 'Error: Minimum 8 characters required',
-    (v) => /[A-Z]/.test(v) || 'Error: Password must contain at least one uppercase letter',
-    (v) => /\d/.test(v) || 'Error: Password must contain at least one number',
-    (v) =>
-      /[!@#$%^&*(),.?:{}|<>]/.test(v) ||
-      'Error: Password must contain at least one special character',
-  ];
-
-  const validateField = (value, rules) => {
-    for (const rule of rules) {
-      const error = rule(value);
-      if (error !== true) {
-        return error; // Возвращаем первую ошибку
-      }
-    }
-    return true; // Если ошибок нет
-  };
-
-  // Проверяем поля
-  const phoneNumberError = validateField(this.phoneNumber, phoneNumberRules);
-  const passwordError = validateField(this.password, passwordRules);
-
-  if (phoneNumberError !== true || passwordError !== true) {
-    alert(
-      [
-        phoneNumberError !== true ? phoneNumberError : '',
-        passwordError !== true ? passwordError : '',
+      // Правила для проверки полей
+      const phoneNumberRules = [
+        (v) => !!v || 'Error: This field is mandatory',
+        (v) =>
+          /^(\+?\d{1,4}[\s-]?)?(\(?\d{3}\)?[\s-]?)?[\d\s-]{7,15}$/.test(v) ||
+          'Error: Invalid phone number Format: 998112223344',
       ]
-        .filter(Boolean)
-        .join('\n')
-    );
-    return; // Не выполняем метод, если есть ошибки
-  }
 
-  // Если всё корректно, отправляем данные
-  const sendData = {
-    phoneNumber: this.phoneNumber.toString(),
-    password: this.password,
-  };
+      const passwordRules = [
+        (v) => !!v || 'Error: This field is mandatory',
+        (v) => v.length >= 8 || 'Error: Minimum 8 characters required',
+        (v) => /[A-Z]/.test(v) || 'Error: Password must contain at least one uppercase letter',
+        (v) => /\d/.test(v) || 'Error: Password must contain at least one number',
+        (v) =>
+          /[!@#$%^&*(),.?:{}|<>]/.test(v) ||
+          'Error: Password must contain at least one special character',
+      ]
 
-  try {
-    await this.sendLoginUser(JSON.stringify(sendData));
-    router.push({ path: '/' });
-  } catch (error) {
-    console.error('Error logging in:', error);
-  }
-}
-  }
+      const validateField = (value, rules) => {
+        for (const rule of rules) {
+          const error = rule(value)
+          if (error !== true) {
+            return error // Возвращаем первую ошибку
+          }
+        }
+        return true // Если ошибок нет
+      }
+
+      // Проверяем поля
+      const phoneNumberError = validateField(this.phoneNumber, phoneNumberRules)
+      const passwordError = validateField(this.password, passwordRules)
+
+      if (phoneNumberError !== true || passwordError !== true) {
+        alert(
+          [
+            phoneNumberError !== true ? phoneNumberError : '',
+            passwordError !== true ? passwordError : '',
+          ]
+            .filter(Boolean)
+            .join('\n')
+        )
+        return // Не выполняем метод, если есть ошибки
+      }
+
+      // Если всё корректно, отправляем данные
+      const sendData = {
+        phoneNumber: this.phoneNumber.toString(),
+        password: this.password,
+      }
+
+      try {
+        await this.sendLoginUser(JSON.stringify(sendData))
+        router.push({ path: '/' })
+      } catch (error) {
+        console.error('Error logging in:', error)
+      }
+    },
+  },
 }
 </script>

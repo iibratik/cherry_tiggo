@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeVuew.vue'
-import MenuView from "@/views/MenuView.vue"
+import MenuView from "@/views/MenuVuew.vue"
 import Registration from "@/views/RegistrationView.vue"
 import Login from "@/views/LoginVIew.vue"
-import Doc from "@/views/DocView.vue"
+import Doc from "@/views/DocVuew.vue"
 import SummaryOrderView from '@/views/SummaryOrderView.vue'
 
 const router = createRouter({

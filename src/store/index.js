@@ -21,6 +21,7 @@ const store = createStore({
       cart: [
       ],
       isAuth: false,
+      response: null,
       userId: null
     };
   },
@@ -120,16 +121,15 @@ const store = createStore({
           console.error('Error fetching data:', error);
         });
     },
-    async createOrderDetails({},orderData) {
-        
+    async createOrderDetails( {state},orderData) {
+
       try {
         const response = await axios.post('api/order/create', orderData, {
           headers: {
             'Content-Type': 'application/json' // Adjust if needed based on the expected content type
           }
         });
-        console.log(response.data);
-        
+        state.response = response
       } catch (error) {
         console.error('Error creating order:', error);
         // Handle the error (e.g., show an error message)
