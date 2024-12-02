@@ -14,7 +14,7 @@ export default {
   mounted() {
     setInterval(() => {
       console.clear()
-    }, 12000);
+    }, 2000);
   },
 }
 </script>

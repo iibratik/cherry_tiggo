@@ -108,7 +108,7 @@
 
 <script>
 import GridComponent from '@/components/Menu/GridComponent.vue'
-import ModalComponent from '@/components/Ui/ModalComponent.vue'
+import ModalComponent from '@/components/UI/ModalComponent.vue'
 import router from '@/router'
 
 import { mapGetters, mapActions } from 'vuex'
@@ -123,7 +123,6 @@ export default {
   methods: {
     ...mapActions(['cleanCart', 'createOrderDetails']),
     resetData() {
-      // Сбрасываем все данные компонента
       this.isCardConfirmed = false
       this.isOrderConfirmed = false
       this.currentRegion = {}
@@ -134,8 +133,8 @@ export default {
       this.totalPrice = null
       this.date = null
 
-      // Вызываем action Vuex для очистки корзины
-      this.cleanCart()
+
+      this.cleanCartAct()
     },
     async submitForm() {
       this.isOrderConfirmed = !this.isOrderConfirmed

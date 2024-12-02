@@ -51,7 +51,7 @@ const store = createStore({
         state.cart = state.cart.filter(item => item.id !== productId);
       }
     },
-    clearCart(state) {
+    cleanCartMut(state) {
       state.cart = []
     },
     minusQuantity(state, { productId }) {
@@ -74,8 +74,8 @@ const store = createStore({
 
   },
   actions: {
-    cleanCart({ commit }) {
-      commit('cleanCart');
+    cleanCartAct({ commit }) {
+      commit('cleanCartMut');
     },
     addOrUpdateCart({ commit, state }, product) {
       // Проверяем, есть ли продукт в корзине
@@ -120,7 +120,8 @@ const store = createStore({
           console.error('Error fetching data:', error);
         });
     },
-    async createOrderDetails(orderData) {
+    async createOrderDetails({},orderData) {
+        
       try {
         const response = await axios.post('api/order/create', orderData, {
           headers: {
@@ -128,6 +129,7 @@ const store = createStore({
           }
         });
         console.log(response.data);
+        
       } catch (error) {
         console.error('Error creating order:', error);
         // Handle the error (e.g., show an error message)
