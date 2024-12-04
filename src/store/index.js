@@ -6,10 +6,29 @@ const store = createStore({
   state() {
     return {
       topProducts: [
-
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
+        {id:1,name:1,price:1,desc:1},
       ],
       allProducts: [
- 
+
       ],
       regions: [
         { id: 0, name: 'Uzbekistan', vat: 15, discount: 3, cost: 1.00 },

@@ -20,8 +20,8 @@ const router = createRouter({
       name: "Menu",
       component: MenuView,
       beforeEnter: (to, from, next) => {
-        const username = store.getters.getUser; 
-        if (username) {
+        const username = store.getters.getUser;
+        if (username.userId) {
           next();
         } else {
           next("/register");

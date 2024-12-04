@@ -8,10 +8,11 @@
           v-for="product in getTopProducts"
           :key="product.id"
           :product="product"
+          aria-label="Product card displaying the details of a popular product"
         ></top-product-card-component>
       </div>
       <WhiteBtn class="top-products__white-btn">
-        <router-link to="/menu">All menu</router-link>
+        <router-link to="/menu" aria-label="Go to the full menu">All menu</router-link>
       </WhiteBtn>
     </div>
   </section>
