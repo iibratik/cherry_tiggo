@@ -78,18 +78,13 @@ export default {
   components: { WhiteBtn },
   methods: {
     ...mapActions(['sendNewUser']),
-    // Обязательное поле
     validateMandatory(value) {
       return !!value || 'Error: This field is mandatory'
     },
-
-    // Проверка номера Узбекистана
     validateUzbekPhone(value) {
-      const uzbekPhoneRegex = /^\+998\s?\d{2}\s?\d{3}\s?\d{4}$/ // Формат +998 XX XXX XXXX
+      const uzbekPhoneRegex = /^\+998\s?\d{2}\s?\d{3}\s?\d{4}$/
       return uzbekPhoneRegex.test(value) || 'Error: Invalid phone number. Format: +998 XX XXX XXXX'
     },
-
-    // Проверка пароля
     validatePassword(value) {
       if (!/[A-Z]/.test(value)) {
         return 'Error: Password must contain at least one uppercase letter'
@@ -102,14 +97,10 @@ export default {
       }
       return true
     },
-
-    // Проверка подтверждения пароля
     validateConfirmPassword(value) {
       return value === this.password || 'Error: Passwords do not match'
     },
-
     async createNewUser() {
-      // Проверяем каждое поле согласно требованиям
       const usernameError = this.validateMandatory(this.username)
       const phoneNumberError =
         this.validateMandatory(this.phoneNumber) || this.validateUzbekPhone(this.phoneNumber)
@@ -117,32 +108,23 @@ export default {
         this.validateMandatory(this.password) || this.validatePassword(this.password)
       const confirmPasswordError =
         this.validateMandatory(this.confirmPass) || this.validateConfirmPassword(this.confirmPass)
-
-      // Собираем ошибки в массив
       const errors = [
         usernameError !== true ? usernameError : null,
         phoneNumberError !== true ? phoneNumberError : null,
         passwordError !== true ? passwordError : null,
         confirmPasswordError !== true ? confirmPasswordError : null,
       ].filter((error) => error !== null)
-
-      // Если есть ошибки, показываем их и прекращаем выполнение
       if (errors.length > 0) {
         alert(errors.join('\n'))
         return
       }
-
-      // Если ошибок нет, отправляем данные пользователя
       const newUser = {
         fullName: this.username,
         phone: this.phoneNumber,
         password: this.password,
       }
-
       try {
         this.sendNewUser(JSON.stringify(newUser))
-        // Здесь должна быть логика отправки данных на сервер, например:
-        // await this.sendNewUser(JSON.stringify(newUser));
         router.push({ path: '/' })
       } catch (error) {
         console.error('Error creating user:', error)

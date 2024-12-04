@@ -110,7 +110,6 @@ export default {
   methods: {
     ...mapActions(['cleanCart', 'createOrderDetails']),
     resetData() {
-      // Сбрасываем все данные компонента
       this.isCardConfirmed = false
       this.isOrderConfirmed = false
       this.currentRegion = {}
@@ -121,7 +120,6 @@ export default {
       this.totalPrice = null
       this.date = null
 
-      // Вызываем action Vuex для очистки корзины
       this.cleanCart()
     },
     async submitForm() {
@@ -155,13 +153,12 @@ export default {
     getTotalPrice() {
       this.totalCardPrice = this.getCartProducts.reduce((sum, item) => {
         return sum + item.price * item.quantity
-      }, 0) // total Price From all cart Items
+      }, 0)
 
       this.totalTax = Math.ceil(
         (this.totalCardPrice / 100) * Number.parseFloat(this.currentRegion.vat)
-      ) // Tax
+      )
 
-      // Calculate discount based on the order cost
       let discountPercentage = 0
       if (this.totalCardPrice >= 50) {
         discountPercentage = 15
@@ -175,7 +172,7 @@ export default {
         discountPercentage = 3
       }
 
-      this.totalDiscount = Math.ceil((this.totalCardPrice / 100) * discountPercentage) // Discount
+      this.totalDiscount = Math.ceil((this.totalCardPrice / 100) * discountPercentage)
 
       this.totalPrice = Math.ceil(this.totalCardPrice + this.totalTax - this.totalDiscount)
     },

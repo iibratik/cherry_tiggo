@@ -66,7 +66,6 @@ export default {
   methods: {
     ...mapActions(['sendLoginUser']),
     async loginUser() {
-      // Правила для проверки полей
       const phoneNumberRules = [
         (v) => !!v || 'Error: This field is mandatory',
         (v) =>
@@ -88,13 +87,12 @@ export default {
         for (const rule of rules) {
           const error = rule(value)
           if (error !== true) {
-            return error // Возвращаем первую ошибку
+            return error
           }
         }
-        return true // Если ошибок нет
+        return true
       }
 
-      // Проверяем поля
       const phoneNumberError = validateField(this.phoneNumber, phoneNumberRules)
       const passwordError = validateField(this.password, passwordRules)
 
@@ -107,10 +105,9 @@ export default {
             .filter(Boolean)
             .join('\n')
         )
-        return // Не выполняем метод, если есть ошибки
+        return
       }
 
-      // Если всё корректно, отправляем данные
       const sendData = {
         phoneNumber: this.phoneNumber.toString(),
         password: this.password,
@@ -126,4 +123,3 @@ export default {
   },
 }
 </script>
-OTKROY PG CHOTBI POSMOTREL POLSOVATELEY

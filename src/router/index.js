@@ -20,11 +20,11 @@ const router = createRouter({
       name: "Menu",
       component: MenuView,
       beforeEnter: (to, from, next) => {
-        const username = store.getters.getUser; // Предполагается, что есть геттер для username
+        const username = store.getters.getUser; 
         if (username) {
-          next(); // Если username не null, переходим на страницу
+          next();
         } else {
-          next("/register"); // Если username отсутствует, перенаправляем на регистрацию
+          next("/register");
         }
       },
     },
