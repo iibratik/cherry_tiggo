@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeVuew.vue'
-import MenuView from "@/views/MenuVuew.vue"
+import HomeView from '@/views/HomeView.vue'
+import MenuView from "@/views/MenuView.vue"
 import Registration from "@/views/RegistrationView.vue"
-import Login from "@/views/LoginVIew.vue"
+import Login from "@/views/LoginView.vue"
 import Doc from "@/views/DocView.vue"
+import store from '@/store'
 import SummaryOrderView from '@/views/SummaryOrderView.vue'
 
 const router = createRouter({
@@ -15,9 +16,17 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/menu',
-      name: 'Menu',
+      path: "/menu",
+      name: "Menu",
       component: MenuView,
+      beforeEnter: (to, from, next) => {
+        const username = store.getters.getUsername; // Предполагается, что есть геттер для username
+        if (username) {
+          next(); // Если username не null, переходим на страницу
+        } else {
+          next("/register"); // Если username отсутствует, перенаправляем на регистрацию
+        }
+      },
     },
     {
       path: '/doc',

@@ -108,7 +108,7 @@
 
 <script>
 import GridComponent from '@/components/Menu/GridComponent.vue'
-import ModalComponent from '@/components/Ui/ModalComponent.vue'
+import ModalComponent from '@/components/UI/ModalComponent.vue'
 import router from '@/router'
 
 import { mapGetters, mapActions } from 'vuex'

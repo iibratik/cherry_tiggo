@@ -167,8 +167,8 @@ const store = createStore({
     getUserId(state) {
       return state.userId
     },
-    getIsAuth(state) {
-      return state.isAuth
+    getUsername(state) {
+      return state.username
     },
     getCartProducts(state) {
       return state.cart

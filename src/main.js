@@ -7,6 +7,9 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import '@mdi/font/css/materialdesignicons.css'
 import './assets/style/main.scss'
+
+
+
 const app = createApp(App)
 app.use(router)
 app.use(vuetify)

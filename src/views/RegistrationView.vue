@@ -3,18 +3,17 @@
     <div class="registration-content container">
       <h2 class="reglog__title">CHERRY CAKE CAFE</h2>
       <span class="reglog__sub-title">Create an account</span>
-      <form @submit.prevent class="reglog__form">
+      <form @submit.prevent="createNewUser" class="reglog__form">
+        <!-- Full Name Field -->
         <div class="reglog__input">
           <v-text-field
             label="Full Name"
             v-model="username"
-            :rules="[
-              (v) => !!v || 'Error: This field is mandatory',
-              (v) => v.length >= 5 || 'Error: Minimum 5 characters required',
-              (v) => /^[a-zA-Z]+$/.test(v) || 'Error: Only Latin letters are allowed',
-            ]"
+            :rules="[validateMandatory]"
           ></v-text-field>
         </div>
+
+        <!-- Phone Number Field -->
         <div class="reglog__input">
           <v-text-field
             label="Phone Number"
@@ -23,48 +22,39 @@
             :rules="[validateMandatory, validateUzbekPhone]"
           ></v-text-field>
         </div>
+
+        <!-- Password Field -->
         <div class="reglog__input password">
           <v-text-field
             label="Create password"
             v-model="password"
             autocomplete="new-password"
             :type="isHidePass ? 'password' : 'text'"
-            :rules="[
-              (v) => !!v || 'Error: This field is mandatory',
-              (v) => v.length >= 8 || 'Error: Minimum 8 characters required',
-              (v) =>
-                /[A-Z]/.test(v) || 'Error: Password must contain at least one uppercase letter',
-              (v) => /\d/.test(v) || 'Error: Password must contain at least one number',
-              (v) =>
-                /[!@#$%^&*(),.?:{}|<>]/.test(v) ||
-                'Error: Password must contain at least one special character',
-            ]"
+            :rules="[validateMandatory, validatePassword]"
           ></v-text-field>
-          <button class="show-pass" @click="isHidePass = !isHidePass">
+          <button class="show-pass" type="button" @click="isHidePass = !isHidePass">
             <i :class="isHidePass ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
           </button>
         </div>
+
+        <!-- Confirm Password Field -->
         <div class="reglog__input password">
           <v-text-field
             label="Confirm Password"
-            :type="isHideConfPass ? 'password' : 'text'"
             v-model="confirmPass"
-            autocomplete="new-password"
-            :rules="[
-              (v) => !!v || 'Error: This field is mandatory',
-              (v) => v === password || 'Error: Passwords do not match',
-            ]"
+            :type="isHideConfPass ? 'password' : 'text'"
+            :rules="[validateMandatory, validateConfirmPassword]"
           ></v-text-field>
-          <button class="show-pass" @click="isHideConfPass = !isHideConfPass">
+          <button class="show-pass" type="button" @click="isHideConfPass = !isHideConfPass">
             <i :class="isHideConfPass ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
           </button>
         </div>
-        <WhiteBtn class="submit"
-          ><button @click="createNewUser()" type="submit" class="submit">
-            Get Stated
-          </button></WhiteBtn
-        >
-        <span>Already have an account? <router-link to="/login">Log in</router-link></span>
+
+        <!-- Submit Button -->
+        <WhiteBtn class="submit">
+          <button type="submit" class="submit">Get Started</button>
+        </WhiteBtn>
+        <span> Already have an account? <router-link to="/login">Log in</router-link> </span>
       </form>
     </div>
   </section>
@@ -73,11 +63,8 @@
 <script>
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
 import router from '@/router'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
-  computed: {
-    ...mapGetters(['getUserId']),
-  },
   data() {
     return {
       username: null,
@@ -91,72 +78,61 @@ export default {
   components: { WhiteBtn },
   methods: {
     ...mapActions(['sendNewUser']),
+    // Обязательное поле
+    validateMandatory(value) {
+      return !!value || 'Error: This field is mandatory'
+    },
+
+    // Проверка номера Узбекистана
+    validateUzbekPhone(value) {
+      const uzbekPhoneRegex = /^\+998\s?\d{2}\s?\d{3}\s?\d{4}$/ // Формат +998 XX XXX XXXX
+      return uzbekPhoneRegex.test(value) || 'Error: Invalid phone number. Format: +998 XX XXX XXXX'
+    },
+
+    // Проверка пароля
+    validatePassword(value) {
+      if (!/[A-Z]/.test(value)) {
+        return 'Error: Password must contain at least one uppercase letter'
+      }
+      if (!/[!@#$%^&*(),.?:{}|<>]/.test(value)) {
+        return 'Error: Password must contain at least one special character'
+      }
+      if (value.length < 8) {
+        return 'Error: Minimum 8 characters required'
+      }
+      return true
+    },
+
+    // Проверка подтверждения пароля
+    validateConfirmPassword(value) {
+      return value === this.password || 'Error: Passwords do not match'
+    },
+
     async createNewUser() {
-      // Проверяем, что поля соответствуют правилам
-      const usernameRules = [
-        (v) => !!v || 'Error: This field is mandatory',
-        (v) => v.length >= 5 || 'Error: Minimum 5 characters required',
-        (v) => /^[a-zA-Z]+$/.test(v) || 'Error: Only Latin letters are allowed',
-      ]
+      // Проверяем каждое поле согласно требованиям
+      const usernameError = this.validateMandatory(this.username)
+      const phoneNumberError =
+        this.validateMandatory(this.phoneNumber) || this.validateUzbekPhone(this.phoneNumber)
+      const passwordError =
+        this.validateMandatory(this.password) || this.validatePassword(this.password)
+      const confirmPasswordError =
+        this.validateMandatory(this.confirmPass) || this.validateConfirmPassword(this.confirmPass)
 
-      const phoneNumberRules = [
-        (v) => !!v || 'Error: This field is mandatory',
-        (v) =>
-          /^(\+?\d{1,4}[\s-]?)?(\(?\d{3}\)?[\s-]?)?[\d\s-]{7,15}$/.test(v) ||
-          'Error: Invalid phone number Format: 998112223344',
-      ]
+      // Собираем ошибки в массив
+      const errors = [
+        usernameError !== true ? usernameError : null,
+        phoneNumberError !== true ? phoneNumberError : null,
+        passwordError !== true ? passwordError : null,
+        confirmPasswordError !== true ? confirmPasswordError : null,
+      ].filter((error) => error !== null)
 
-      const passwordRules = [
-        (v) => !!v || 'Error: This field is mandatory',
-        (v) => v.length >= 8 || 'Error: Minimum 8 characters required',
-        (v) => /[A-Z]/.test(v) || 'Error: Password must contain at least one uppercase letter',
-        (v) => /\d/.test(v) || 'Error: Password must contain at least one number',
-        (v) =>
-          /[!@#$%^&*(),.?:{}|<>]/.test(v) ||
-          'Error: Password must contain at least one special character',
-      ]
-
-      const confirmPasswordRules = [
-        (v) => !!v || 'Error: This field is mandatory',
-        (v) => v === this.password || 'Error: Passwords do not match',
-      ]
-
-      const validateField = (value, rules) => {
-        for (const rule of rules) {
-          const error = rule(value)
-          if (error !== true) {
-            return error // Возвращаем первую ошибку
-          }
-        }
-        return true // Если ошибок нет
+      // Если есть ошибки, показываем их и прекращаем выполнение
+      if (errors.length > 0) {
+        alert(errors.join('\n'))
+        return
       }
 
-      // Проверяем каждое поле
-      const usernameError = validateField(this.username, usernameRules)
-      const phoneNumberError = validateField(this.phoneNumber, phoneNumberRules)
-      const passwordError = validateField(this.password, passwordRules)
-      const confirmPasswordError = validateField(this.confirmPass, confirmPasswordRules)
-
-      if (
-        usernameError !== true ||
-        phoneNumberError !== true ||
-        passwordError !== true ||
-        confirmPasswordError !== true
-      ) {
-        alert(
-          [
-            usernameError !== true ? usernameError : '',
-            phoneNumberError !== true ? phoneNumberError : '',
-            passwordError !== true ? passwordError : '',
-            confirmPasswordError !== true ? confirmPasswordError : '',
-          ]
-            .filter(Boolean)
-            .join('\n')
-        )
-        return // Не выполняем метод, если есть ошибки
-      }
-
-      // Если всё корректно, отправляем данные
+      // Если ошибок нет, отправляем данные пользователя
       const newUser = {
         fullName: this.username,
         phone: this.phoneNumber,
@@ -164,15 +140,15 @@ export default {
       }
 
       try {
-        await this.sendNewUser(JSON.stringify(newUser))
+        this.sendNewUser(JSON.stringify(newUser))
+        // Здесь должна быть логика отправки данных на сервер, например:
+        // await this.sendNewUser(JSON.stringify(newUser));
         router.push({ path: '/' })
       } catch (error) {
         console.error('Error creating user:', error)
+        alert('An error occurred while registering the user. Please try again.')
       }
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

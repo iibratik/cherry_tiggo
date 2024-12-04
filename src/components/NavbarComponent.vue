@@ -87,12 +87,15 @@
 import { mapGetters } from 'vuex'
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
 export default {
+  computed: {
+    ...mapGetters(['getUsername']),
+  },
   components: {
     WhiteBtn,
   },
   data() {
     return {
-      username: this.$store.state.username,
+      username: this.$store.username,
       isSidebar: false,
     }
   },
@@ -100,9 +103,6 @@ export default {
     switchBurgerMenu() {
       this.isSidebar = !this.isSidebar
     },
-  },
-  computed: {
-    ...mapGetters(['getIsAuth']), // Map Vuex getter to computed property
   },
 }
 </script>
