@@ -20,12 +20,7 @@
             label="Phone Number"
             v-model="phoneNumber"
             autocomplete="tel"
-            :rules="[
-              (v) => !!v || 'Error: This field is mandatory',
-              (v) =>
-                /^(\+?\d{1,4}[\s\-]?)?(\(?\d{3}\)?[\s\-]?)?[\d\s\-]{7,15}$/.test(v) ||
-                'Error: Invalid phone number Format: 998112223344',
-            ]"
+            :rules="[validateMandatory, validateUzbekPhone]"
           ></v-text-field>
         </div>
         <div class="reglog__input password">
