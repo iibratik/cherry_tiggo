@@ -88,16 +88,19 @@ import { mapGetters } from 'vuex'
 import WhiteBtn from '@/components/UI/WhiteBtn.vue'
 export default {
   computed: {
-    ...mapGetters(['getUsername']),
+    ...mapGetters(['getUser']),
   },
   components: {
     WhiteBtn,
   },
   data() {
     return {
-      username: this.$store.username,
+      username: null,
       isSidebar: false,
     }
+  },
+  mounted() {
+    this.username = this.getUser.username
   },
   methods: {
     switchBurgerMenu() {

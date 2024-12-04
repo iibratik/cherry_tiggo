@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import MenuView from "@/views/MenuView.vue"
 import Registration from "@/views/RegistrationView.vue"
-import Login from "@/views/LoginView.vue"
-import Doc from "@/views/DocView.vue"
+import Login from "@/views/LoginVIew.vue"
+import Doc from "@/views/DocVIew.vue"
 import store from '@/store'
 import SummaryOrderView from '@/views/SummaryOrderView.vue'
 
@@ -17,10 +17,11 @@ const router = createRouter({
     },
     {
       path: "/menu",
+    //GDE API DLYA LOGINA EBANAT??????? YA EBU ?
       name: "Menu",
       component: MenuView,
       beforeEnter: (to, from, next) => {
-        const username = store.getters.getUsername; // Предполагается, что есть геттер для username
+        const username = store.getters.getUser; // Предполагается, что есть геттер для username
         if (username) {
           next(); // Если username не null, переходим на страницу
         } else {

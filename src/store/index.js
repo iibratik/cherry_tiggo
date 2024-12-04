@@ -20,9 +20,11 @@ const store = createStore({
       ],
       cart: [
       ],
-      username: null,
       response: null,
-      userId: null
+      user:{
+        userId:null,
+        username: null
+      },
     };
   },
   mutations: {
@@ -69,8 +71,8 @@ const store = createStore({
     setTopProducts(state, products) {
       state.topProducts = products
     },
-    setUserId(state, payload) {
-      state.userId = payload
+    setUser(state, payload) {
+      state.user = payload
     }
 
   },
@@ -135,14 +137,19 @@ const store = createStore({
         // Handle the error (e.g., show an error message)
       }
     },
-    async sendNewUser({ commit }, newUserData) {
+    async sendNewUser({commit }, newUserData) {
       try {
         const response = await axios.post('api/user/register', newUserData, {
           headers: {
             'Content-Type': 'application/json' // Adjust if needed based on the expected content type
           }
         });
-        commit('setUserId', response.data)
+        const recivedUser = {
+          userId: response.data[0],
+          username: response.data[1]
+        }
+        commit('setUser', recivedUser)
+
       } catch (error) {
         console.error('Reg err:', error);
         // Handle the error (e.g., show an error message)
@@ -156,7 +163,13 @@ const store = createStore({
             'Content-Type': 'application/json' // Adjust if needed based on the expected content type
           }
         });
-        commit('setUserId', response.data)
+        const recivedUser = {
+          userId: response.data[0],
+          username: response.data[1]
+        }
+        commit('setUser', recivedUser)
+        console.log(
+         recivedUser);
       } catch (error) {
         console.error('Reg err:', error);
         // Handle the error (e.g., show an error message)
@@ -164,11 +177,8 @@ const store = createStore({
     }
   },
   getters: {
-    getUserId(state) {
-      return state.userId
-    },
-    getUsername(state) {
-      return state.username
+    getUser(state) {
+      return state.user
     },
     getCartProducts(state) {
       return state.cart

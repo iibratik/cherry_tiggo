@@ -19,9 +19,7 @@
                   <h3 class="menu-cart__item-title">
                     Product name: <span>{{ item.name }}</span>
                   </h3>
-                  <span class="menu-cart__item-quantity"
-                    >Quantity: <span>{{ item.quantity }}</span></span
-                  >
+                  <span class="menu-cart__item-quantity">Quantity: <span>{{ item.quantity }}</span></span>
                 </div>
               </li>
             </ul>
@@ -43,19 +41,11 @@
               <div class="menu-order__dropdown">
                 <label for="region" class="menu-order__label">pLEASE CHOOSE YOUR REGION:</label>
                 <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle menu-order__input"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                  <button class="btn dropdown-toggle menu-order__input" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     {{ currentRegion.name }}
                   </button>
-                  <ul
-                    class="dropdown-menu menu-order__regions"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
+                  <ul class="dropdown-menu menu-order__regions" aria-labelledby="dropdownMenuButton1">
                     <li v-for="region in getRegions" :key="region.id" @click="setRegion(region)">
                       <a class="dropdown-item menu-order__region">{{ region.name }}</a>
                     </li>
@@ -68,10 +58,7 @@
                   <v-date-picker color="#d5621d" v-model="date" :allowed-dates="isDateAllowed">
                   </v-date-picker>
                 </div>
-                <div
-                  class="menu-order__total"
-                  v-show="Object.keys(currentRegion).length > 0 && date !== null"
-                >
+                <div class="menu-order__total" v-show="Object.keys(currentRegion).length > 0 && date !== null">
                   <div class="menu-order__total-price">
                     <h3 class="menu-order__total-price-title">ORDER PRICE</h3>
                     <div class="menu-order__total-price-desc">
@@ -114,7 +101,7 @@ import router from '@/router'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['getRegions', 'getCartProducts', 'getUserId']),
+    ...mapGetters(['getRegions', 'getCartProducts', 'getUser']),
   },
   components: {
     GridComponent,
@@ -149,7 +136,7 @@ export default {
         region: this.currentRegion.name,
         date: this.formatDate(this.date),
         price: this.totalPrice.toString(),
-        userid: `11`,
+        userid: this.getUser.userId,
       }
       console.log(JSON.stringify(submitData))
       await this.createOrderDetails(JSON.stringify(submitData))
@@ -190,7 +177,7 @@ export default {
 
       this.totalDiscount = Math.ceil((this.totalCardPrice / 100) * discountPercentage) // Discount
 
-      this.totalPrice = this.totalCardPrice + this.totalTax - this.totalDiscount
+      this.totalPrice = Math.ceil(this.totalCardPrice + this.totalTax - this.totalDiscount)
     },
     switchModalWins() {
       this.isCardConfirmed = !this.isCardConfirmed
