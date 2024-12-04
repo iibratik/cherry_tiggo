@@ -20,7 +20,7 @@ const store = createStore({
       ],
       cart: [
       ],
-      isAuth: false,
+      username: null,
       response: null,
       userId: null
     };

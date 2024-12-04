@@ -35,7 +35,7 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <p class="contacts-copyright">Copyright © 2022. Все права защищены.</p>
+      <p class="contacts-copyright">Copyright © 2024. Все права защищены.</p>
     </div>
   </section>
 </template>

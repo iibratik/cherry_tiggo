@@ -3,7 +3,7 @@ import HomeView from '@/views/HomeVuew.vue'
 import MenuView from "@/views/MenuVuew.vue"
 import Registration from "@/views/RegistrationView.vue"
 import Login from "@/views/LoginVIew.vue"
-import Doc from "@/views/DocVuew.vue"
+import Doc from "@/views/DocView.vue"
 import SummaryOrderView from '@/views/SummaryOrderView.vue'
 
 const router = createRouter({

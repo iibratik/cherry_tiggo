@@ -11,11 +11,19 @@
 
 <script>
 export default {
+  data(){
+    return{
+      interval:null,
+    }
+  },
   mounted() {
-    setInterval(() => {
+    this.interval =  setInterval(() => {
       console.clear()
     }, 2000);
   },
+  beforeUnmount(){
+    clearInterval(this.interval)
+  }
 }
 </script>
 
