@@ -1,38 +1,49 @@
 <template>
-  <section class="registration">
+  <section class="registration" aria-labelledby="registration-title">
     <div class="registration-content container">
-      <h2 class="reglog__title">CHERRY CAKE CAFE</h2>
-      <span class="reglog__sub-title">Create an account</span>
-      <form @submit.prevent="createNewUser" class="reglog__form">
+      <h2 id="registration-title" class="reglog__title">CHERRY CAKE CAFE</h2>
+      <p class="reglog__sub-title">Create an account</p>
+      <form @submit.prevent="createNewUser" class="reglog__form" novalidate>
         <!-- Full Name Field -->
         <div class="reglog__input">
           <v-text-field
+            id="full-name"
             label="Full Name"
             v-model="username"
             :rules="[validateMandatory]"
+            aria-required="true"
           ></v-text-field>
         </div>
 
         <!-- Phone Number Field -->
         <div class="reglog__input">
           <v-text-field
+            id="phone-number"
             label="Phone Number"
             v-model="phoneNumber"
             autocomplete="tel"
             :rules="[validateMandatory, validateUzbekPhone]"
+            aria-required="true"
           ></v-text-field>
         </div>
 
         <!-- Password Field -->
         <div class="reglog__input password">
           <v-text-field
+            id="password"
             label="Create password"
             v-model="password"
             autocomplete="new-password"
             :type="isHidePass ? 'password' : 'text'"
             :rules="[validateMandatory, validatePassword]"
+            aria-required="true"
           ></v-text-field>
-          <button class="show-pass" type="button" @click="isHidePass = !isHidePass">
+          <button
+            class="show-pass"
+            type="button"
+            @click="isHidePass = !isHidePass"
+            :aria-label="isHidePass ? 'Show password' : 'Hide password'"
+          >
             <i :class="isHidePass ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
           </button>
         </div>
@@ -40,21 +51,33 @@
         <!-- Confirm Password Field -->
         <div class="reglog__input password">
           <v-text-field
+            id="confirm-password"
             label="Confirm Password"
             v-model="confirmPass"
             :type="isHideConfPass ? 'password' : 'text'"
             :rules="[validateMandatory, validateConfirmPassword]"
+            aria-required="true"
           ></v-text-field>
-          <button class="show-pass" type="button" @click="isHideConfPass = !isHideConfPass">
+          <button
+            class="show-pass"
+            type="button"
+            @click="isHideConfPass = !isHideConfPass"
+            :aria-label="isHideConfPass ? 'Show confirm password' : 'Hide confirm password'"
+          >
             <i :class="isHideConfPass ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
           </button>
         </div>
 
         <!-- Submit Button -->
         <WhiteBtn class="submit">
-          <button type="submit" class="submit">Get Started</button>
+          <button id="submit-button" type="submit" class="submit" aria-label="Register">
+            Get Started
+          </button>
         </WhiteBtn>
-        <span> Already have an account? <router-link to="/login">Log in</router-link> </span>
+        <p>
+          Already have an account?
+          <router-link to="/login" aria-label="Go to login page">Log in</router-link>
+        </p>
       </form>
     </div>
   </section>
@@ -77,7 +100,7 @@ export default {
   },
   components: { WhiteBtn },
   methods: {
-    ...mapActions(['sendNewUser']),
+    ...mapActions(['sendNewUser', 'sendLoginUser']),
     // Обязательное поле
     validateMandatory(value) {
       return !!value || 'Error: This field is mandatory'
@@ -138,12 +161,16 @@ export default {
         phone: this.phoneNumber,
         password: this.password,
       }
-
+      const loginUser = {
+        phone: this.phoneNumber,
+        password: this.password,
+      }
       try {
         this.sendNewUser(JSON.stringify(newUser))
         // Здесь должна быть логика отправки данных на сервер, например:
         // await this.sendNewUser(JSON.stringify(newUser));
         router.push({ path: '/' })
+        this.sendLoginUser(JSON.stringify(loginUser))
       } catch (error) {
         console.error('Error creating user:', error)
         alert('An error occurred while registering the user. Please try again.')

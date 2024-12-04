@@ -1,69 +1,119 @@
 <template>
-  <section class="menu">
-    <h2 class="title">MENU</h2>
+  <section class="menu" aria-labelledby="menu-title">
+    <h2 id="menu-title" class="title">MENU</h2>
     <div class="menu-content container">
-      <GridComponent />
-      <button class="menu-btn submit-btn" @click="this.isCardConfirmed = !this.isCardConfirmed">
+      <GridComponent aria-label="Menu Grid" />
+
+      <button
+        class="menu-btn submit-btn"
+        aria-label="Complete order"
+      >
         Complete
       </button>
-      <ModalComponent v-show="isCardConfirmed && getCartProducts.length > 0">
+
+      <ModalComponent>
         <div class="menu-order__modal-win">
           <div class="menu-cart-content">
-            <button class="menu-order__close" @click="isCardConfirmed = !isCardConfirmed">
-              <i class="fa-solid fa-xmark"></i>
+            <button
+              class="menu-order__close"
+              aria-label="Close cart"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
+
             <ul class="menu-cart-items">
-              <li class="menu-cart__item" v-for="item in getCartProducts" :key="item.id">
-                <img :src="item.picture" alt="product image" />
+              <li
+                class="menu-cart__item"
+                v-for="item in getCartProducts"
+                :key="item.id"
+                aria-label="Cart item"
+              >
+                <img
+                  :src="item.picture"
+                  :alt="'Image of ' + item.name"
+                />
                 <div class="menu-cart__item-text">
                   <h3 class="menu-cart__item-title">
                     Product name: <span>{{ item.name }}</span>
                   </h3>
-                  <span class="menu-cart__item-quantity">Quantity: <span>{{ item.quantity }}</span></span>
+                  <span class="menu-cart__item-quantity">
+                    Quantity: <span>{{ item.quantity }}</span>
+                  </span>
                 </div>
               </li>
             </ul>
-            <button class="menu-cart__submit menu-btn" @click="switchModalWins">
+
+            <button
+              class="menu-cart__submit menu-btn"
+              aria-label="Submit order"
+            >
               Submit order
             </button>
           </div>
         </div>
       </ModalComponent>
-      <ModalComponent v-show="isOrderConfirmed">
+
+      <ModalComponent>
         <div class="menu-order__modal-win">
           <div class="menu-order-content">
-            <form class="menu-order__form" @submit.prevent>
+            <form class="menu-order__form" novalidate>
               <div class="menu-order__form-head">
-                <button class="menu-order__close" @click="switchModalWins">
-                  <i class="fa-solid fa-xmark"></i>
+                <button
+                  class="menu-order__close"
+                  aria-label="Close order form"
+                >
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                 </button>
               </div>
+
               <div class="menu-order__dropdown">
-                <label for="region" class="menu-order__label">pLEASE CHOOSE YOUR REGION:</label>
+                <label for="region" class="menu-order__label">
+                  Please choose your region:
+                </label>
                 <div class="dropdown">
-                  <button class="btn dropdown-toggle menu-order__input" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                  <button
+                    class="btn dropdown-toggle menu-order__input"
+                    type="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
                     {{ currentRegion.name }}
                   </button>
-                  <ul class="dropdown-menu menu-order__regions" aria-labelledby="dropdownMenuButton1">
-                    <li v-for="region in getRegions" :key="region.id" @click="setRegion(region)">
-                      <a class="dropdown-item menu-order__region">{{ region.name }}</a>
+                  <ul
+                    class="dropdown-menu menu-order__regions"
+                    role="menu"
+                  >
+                    <li
+                      v-for="region in getRegions"
+                      :key="region.id"
+                      role="menuitem"
+                    >
+                      <a class="dropdown-item menu-order__region">
+                        {{ region.name }}
+                      </a>
                     </li>
                   </ul>
                 </div>
               </div>
+
               <div class="menu-order__date-total">
-                <div class="menu-order__date" v-show="Object.keys(currentRegion).length > 0">
-                  <label class="menu-order__label">Choose date of order:</label>
-                  <v-date-picker color="#d5621d" v-model="date" :allowed-dates="isDateAllowed">
+                <div class="menu-order__date">
+                  <label for="order-date" class="menu-order__label">
+                    Choose date of order:
+                  </label>
+                  <v-date-picker
+                    id="order-date"
+                    aria-label="Select order date"
+                  >
                   </v-date-picker>
                 </div>
-                <div class="menu-order__total" v-show="Object.keys(currentRegion).length > 0 && date !== null">
+
+                <div class="menu-order__total">
                   <div class="menu-order__total-price">
                     <h3 class="menu-order__total-price-title">ORDER PRICE</h3>
                     <div class="menu-order__total-price-desc">
                       <div class="price-text">
-                        <span class="price-title">price: </span>
+                        <span class="price-title">Price: </span>
                         <span class="price-value">{{ totalCardPrice }}$</span>
                       </div>
                       <div class="price-text">
@@ -80,8 +130,13 @@
                       </div>
                     </div>
                   </div>
-                  <button class="menu-btn menu-order__submit" @click="submitForm" type="submit">
-                    submit
+
+                  <button
+                    class="menu-btn menu-order__submit"
+                    type="submit"
+                    aria-label="Submit final order"
+                  >
+                    Submit
                   </button>
                 </div>
               </div>

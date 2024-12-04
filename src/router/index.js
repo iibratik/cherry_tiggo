@@ -21,7 +21,7 @@ const router = createRouter({
       component: MenuView,
       beforeEnter: (to, from, next) => {
         const username = store.getters.getUser; // Предполагается, что есть геттер для username
-        if (username) {
+        if (username.userId) {
           next(); // Если username не null, переходим на страницу
         } else {
           next("/register"); // Если username отсутствует, перенаправляем на регистрацию

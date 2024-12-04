@@ -1,6 +1,8 @@
 <template>
   <Navbar v-if="!$route.meta.hideNavigation" />
-  <LoaderComponent v-if="isLoading"/>
+  <div v-if="isLoading" aria-busy="true" role="status">
+      <LoaderComponent />
+    </div>
   <router-view v-else></router-view>
 </template>
 
