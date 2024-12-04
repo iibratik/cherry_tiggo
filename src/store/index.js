@@ -9,7 +9,12 @@ const store = createStore({
 
       ],
       allProducts: [
-
+        {
+          id:1,
+          img:1,
+          name:1,
+          quantity:1,
+        }
       ],
       regions: [
         { id: 0, name: 'Uzbekistan', vat: 15, discount: 3, cost: 1.00 },

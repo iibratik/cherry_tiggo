@@ -101,6 +101,10 @@
     }
 }
 @media screen and (max-width: 991px) {
+    .menu-cart__submit{
+        width: 50%;
+        margin: 0;
+    }
     .menu-card__modal-win .modal-win__text{
         display: flex;
         flex-direction: column;
@@ -134,6 +138,7 @@
         overflow: auto;
     }
     .menu-cart-content {
+        min-width: 80%;
         padding: 10px 10px;
         background-color: #b35013;
         border-radius: 15px;

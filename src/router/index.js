@@ -3,7 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import MenuView from "@/views/MenuView.vue"
 import Registration from "@/views/RegistrationView.vue"
 import Login from "@/views/LoginVIew.vue"
-import Doc from "@/views/DocVIew.vue"
+import Doc from "@/views/DocView.vue"
 import store from '@/store'
 import SummaryOrderView from '@/views/SummaryOrderView.vue'
 
@@ -33,7 +33,7 @@ const router = createRouter({
       path: '/doc',
       name: 'Doc',
       component: Doc,
-      meta: { hideNavigation: true },
+      meta: { hideNavigation: false },
     },
     {
       path: '/register',
