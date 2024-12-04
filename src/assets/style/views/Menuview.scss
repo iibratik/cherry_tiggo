@@ -187,6 +187,8 @@
             padding: 45px 45px;
             border-radius: 30px;
             background-color: var(--brown);
+            max-height: 95vh;
+            overflow-y: auto;
         }
     }
     &-grid {
@@ -218,28 +220,16 @@
         align-items: center;
         &__modal-win {
             position: fixed;
-            left: 0;
-            transform: translate(-50%, -50%);
-            width: 70%;
-            height: 96%;
-            max-height: 96%;
-            overflow: hidden;
+            left: 10%;
             background-color: var(--brown);
             padding: 50px;
             border-radius: 30px;
             color: white;
             z-index: 1000;
-            top: 0;
-            min-width: 70%;
-            max-width: 80%;
-            min-height: fit-content;
-            max-height: 96%;
+            top: 5%;
             background-color: var(--brown);
-            padding: 50px;
-            border-radius: 30px;
-            color: white;
-            z-index: 1000;
-            overflow-y: auto; /* Enable scrolling for content */
+            max-height: 90vh; /* Ограничение по высоте (90% от высоты экрана) */
+            overflow-y: auto;
 
             & .modal-win {
                 &__price {

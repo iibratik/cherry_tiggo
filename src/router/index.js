@@ -17,7 +17,6 @@ const router = createRouter({
     },
     {
       path: "/menu",
-    //GDE API DLYA LOGINA EBANAT??????? YA EBU ?
       name: "Menu",
       component: MenuView,
       beforeEnter: (to, from, next) => {
