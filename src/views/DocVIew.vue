@@ -4,7 +4,7 @@
       src="https://docs.google.com/document/d/1okMcvaXMGOc6VJLUDamegUv8h-lzT6dvOrjj9SgGFsQ/edit?tab=t.0"
       frameborder="0"
       width="90%"
-      height="100%"
+      height="90%"
     ></iframe>
   </div>
 </template>
@@ -29,8 +29,9 @@ export default {
 
 <style lang="scss" scoped>
 .doc {
-  height: 100%;
+  height: 95%;
   display: flex;
+  align-items: flex-end;
   justify-content: center;
 }
 </style>

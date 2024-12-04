@@ -15,7 +15,6 @@
         }
 
         &-content {
-            background-color: #ff5c00;
             padding: 30px;
             display: flex;
             flex-direction: column;
@@ -30,6 +29,8 @@
         &__modal-win {
             height: 100%;
             display: flex;
+            background-color: #ff5c00;
+
             align-items: center;
             justify-content: center;
         }
@@ -181,9 +182,11 @@
         }
 
         &__modal-win {
+            min-width: 70%;
+            max-width: 80%;
             padding: 45px 45px;
             border-radius: 30px;
-            background-color: #4b2108;
+            background-color: var(--brown);
         }
     }
     &-grid {
@@ -215,7 +218,7 @@
         align-items: center;
         &__modal-win {
             position: fixed;
-            left: 50%;
+            left: 0;
             transform: translate(-50%, -50%);
             width: 70%;
             height: 96%;
@@ -226,6 +229,17 @@
             border-radius: 30px;
             color: white;
             z-index: 1000;
+            top: 0;
+            min-width: 70%;
+            max-width: 80%;
+            min-height: fit-content;
+            max-height: 96%;
+            background-color: var(--brown);
+            padding: 50px;
+            border-radius: 30px;
+            color: white;
+            z-index: 1000;
+            overflow-y: auto; /* Enable scrolling for content */
 
             & .modal-win {
                 &__price {
@@ -446,30 +460,12 @@
                 }
             }
             img {
-                height: 30%;
-                width: 30%;
+                height: 70%;
+                width: 100%;
             }
         }
     }
 }
-
-
-.menu-order__modal-win {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 70%;
-
-    min-height: fit-content;
-    max-height: 96%;
-    background-color: var(--brown);
-    padding: 50px;
-    border-radius: 30px;
-    color: white;
-    z-index: 1000;
-    overflow-y: auto; /* Enable scrolling for content */
-}
-
 
 
 .menu-cart__item-text {
