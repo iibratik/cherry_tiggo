@@ -1,6 +1,6 @@
 <template>
   <div class="btn btn-light white-btn">
- <slot></slot>
+    <slot></slot>
   </div>
 </template>
 

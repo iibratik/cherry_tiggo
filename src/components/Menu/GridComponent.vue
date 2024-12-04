@@ -1,8 +1,22 @@
 <template>
   <div class="menu-grid">
-    <Loader v-if="isLoading || getAllProducts.length == 0" class="loading-indicator"> </Loader>
-    <div class="menu-grid-content" v-else>
-      <CardItem v-for="product in getAllProducts" :key="product.id" :product="product" />
+    <!-- Loader Component: Accessible for screen readers -->
+    <Loader
+      v-if="isLoading || getAllProducts.length == 0"
+      class="loading-indicator"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading menu items..."
+    />
+
+    <!-- Menu Grid Content -->
+    <div class="menu-grid-content" v-else aria-live="polite" aria-label="Menu items available">
+      <CardItem
+        v-for="product in getAllProducts"
+        :key="product.id"
+        :product="product"
+        aria-labelledby="product.name"
+      />
     </div>
   </div>
 </template>
